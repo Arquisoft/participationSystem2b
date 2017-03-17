@@ -1,0 +1,9 @@
+Buenos dias Juan
+Usted a sido dado de alta con exito en el sistema de particion ciudadana.
+Sus credenciales son:
+	Usuario: juan@example.com
+	Contraseña: Yctkyq9-
+
+Un saludo y gracias por darse de alta.
+
+Atentamente el ayuntamiento.
