@@ -1,6 +1,16 @@
 language: java
 jdk:
 - oraclejdk8
+install:
+- curl http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz > kafka.tgz
+- tar -xzf kafka.tgz
+- cd kafka_2.11-0.10.2.0
+- ./bin/zookeeper-server-start.sh config/zookeeper.properties &
+- sleep 3
+- ./bin/kafka-server-start.sh config/server.properties &
+- sleep 5
+- ./bin/kafka-topics.sh --zookeeper localhost:2181 --topic foobar --partition 1 --replication-factor 1 --create
+- cd ../
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_script:
