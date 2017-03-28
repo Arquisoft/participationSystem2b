@@ -1,8 +1,8 @@
-package es.uniovi.asw;
+package es.uniovi.asw.business;
 
 import java.util.ArrayList;
 
-import dao.Ciudadano;
+import es.uniovi.asw.dao.Ciudadano;
 
 public interface Formatos {
 	

@@ -1,4 +1,4 @@
-package es.uniovi.asw;
+package es.uniovi.asw.business;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.hsqldb.jdbc.JDBCDriver;
 
-import dao.Ciudadano;
+import es.uniovi.asw.dao.Ciudadano;
 
 public class BBDD {
 

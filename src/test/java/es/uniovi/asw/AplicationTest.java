@@ -17,7 +17,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import dao.Ciudadano;
+import es.uniovi.asw.business.BBDD;
+import es.uniovi.asw.business.CrearCorreo;
+import es.uniovi.asw.business.Leer;
+import es.uniovi.asw.business.LoadUsers;
+import es.uniovi.asw.business.Xlsx;
+import es.uniovi.asw.dao.Ciudadano;
 
 public class AplicationTest {
 

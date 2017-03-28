@@ -1,4 +1,4 @@
-package es.uniovi.asw;
+package es.uniovi.asw.business;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import dao.Ciudadano;
+import es.uniovi.asw.dao.Ciudadano;
 
 public class Csv implements Formatos {
 

@@ -1,4 +1,4 @@
-package dao;
+package es.uniovi.asw.dao;
 
 import java.sql.Date;
 import java.util.Random;

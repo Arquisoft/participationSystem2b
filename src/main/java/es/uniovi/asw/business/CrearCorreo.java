@@ -1,11 +1,11 @@
-package es.uniovi.asw;
+package es.uniovi.asw.business;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import dao.Ciudadano;
+import es.uniovi.asw.dao.Ciudadano;
 
 public class CrearCorreo {
 

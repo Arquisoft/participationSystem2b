@@ -122,8 +122,19 @@
 			<version>3.15</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>3.3.7</version>
+		</dependency>
+		<dependency>
+	    <groupId>org.webjars.bower</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>4.0.0-alpha.6</version>
+		</dependency>
 
 	</dependencies>
+	
 
 	<dependencyManagement>
 		<dependencies>

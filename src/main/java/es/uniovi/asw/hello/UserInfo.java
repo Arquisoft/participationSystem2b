@@ -1,4 +1,4 @@
-package hello;
+package es.uniovi.asw.hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

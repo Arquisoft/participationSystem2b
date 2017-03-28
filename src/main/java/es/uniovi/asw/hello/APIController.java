@@ -1,4 +1,4 @@
-package hello;
+package es.uniovi.asw.hello;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
