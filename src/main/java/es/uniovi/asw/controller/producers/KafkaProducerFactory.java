@@ -1,4 +1,4 @@
-package es.uniovi.asw.hello.producers;
+package es.uniovi.asw.controller.producers;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

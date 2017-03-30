@@ -1,8 +1,10 @@
-package es.uniovi.asw.hello;
+package es.uniovi.asw.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import es.uniovi.asw.hello.UserInfo;
 
 @RestController
 public class APIController {

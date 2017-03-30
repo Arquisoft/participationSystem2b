@@ -1,14 +1,14 @@
-package es.uniovi.asw.dao;
+package es.uniovi.asw.model;
 
 import java.sql.Date;
 import java.util.Random;
 
-public class Ciudadano {
+public class Participant {
 
 	private String nombre, apellidos, email, direccion, nacionalidad, dni, password;
 	private Date fecha_nacimiento;
 
-	public Ciudadano(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
+	public Participant(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
 			Date fecha_nacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -115,7 +115,7 @@ public class Ciudadano {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ciudadano other = (Ciudadano) obj;
+		Participant other = (Participant) obj;
 		if (apellidos == null) {
 			if (other.apellidos != null)
 				return false;

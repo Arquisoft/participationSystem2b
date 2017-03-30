@@ -1,4 +1,4 @@
-package es.uniovi.asw.hello;
+package es.uniovi.asw.controller;
 
 
 import org.springframework.boot.SpringApplication;

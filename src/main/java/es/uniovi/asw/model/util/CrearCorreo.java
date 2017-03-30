@@ -1,15 +1,15 @@
-package es.uniovi.asw.business;
+package es.uniovi.asw.model.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import es.uniovi.asw.dao.Ciudadano;
+import es.uniovi.asw.model.Participant;
 
 public class CrearCorreo {
 
-	public static void mandarCorreo(Ciudadano ciudadano) {
+	public static void mandarCorreo(Participant ciudadano) {
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;

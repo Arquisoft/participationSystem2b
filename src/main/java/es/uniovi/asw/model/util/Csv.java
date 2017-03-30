@@ -1,4 +1,4 @@
-package es.uniovi.asw.business;
+package es.uniovi.asw.model.util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import es.uniovi.asw.dao.Ciudadano;
+import es.uniovi.asw.model.Participant;
 
 public class Csv implements Formatos {
 
 	@Override
-	public ArrayList<Ciudadano> leerCiudadanos(ArrayList<Ciudadano> ciudadanos, String ruta) {
+	public ArrayList<Participant> leerCiudadanos(ArrayList<Participant> ciudadanos, String ruta) {
 		try {
 
 			FileInputStream is = new FileInputStream(ruta);
@@ -27,7 +27,7 @@ public class Csv implements Formatos {
 					continue;
 				Date date = new SimpleDateFormat("dd/mm/yyyy").parse(trozos[3]);
 				java.sql.Date nacimiento = new java.sql.Date(date.getTime());
-				Ciudadano ciu = new Ciudadano(trozos[0], trozos[1], trozos[2], trozos[4], trozos[5], trozos[6],
+				Participant ciu = new Participant(trozos[0], trozos[1], trozos[2], trozos[4], trozos[5], trozos[6],
 						nacimiento);
 				ciudadanos.add(ciu);
 			}

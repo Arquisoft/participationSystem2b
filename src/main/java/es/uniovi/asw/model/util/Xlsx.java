@@ -1,4 +1,4 @@
-package es.uniovi.asw.business;
+package es.uniovi.asw.model.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,12 +11,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import es.uniovi.asw.dao.Ciudadano;
+import es.uniovi.asw.model.Participant;
 
 public class Xlsx implements Formatos {
 
 	@Override
-	public ArrayList<Ciudadano> leerCiudadanos(ArrayList<Ciudadano> ciudadanos, String ruta) {
+	public ArrayList<Participant> leerCiudadanos(ArrayList<Participant> ciudadanos, String ruta) {
 		try {
 			FileInputStream file = new FileInputStream(new File(ruta));
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -39,7 +39,7 @@ public class Xlsx implements Formatos {
 				Date date = new SimpleDateFormat("dd-MMM-yyyy").parse(fecha);
 				java.sql.Date nacimiento = new java.sql.Date(date.getTime());
 
-				Ciudadano ciudadano = new Ciudadano(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
+				Participant ciudadano = new Participant(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
 						aux.get(4).toString(), aux.get(5).toString(), aux.get(6).toString(), nacimiento);
 
 				addUsuario.execute();

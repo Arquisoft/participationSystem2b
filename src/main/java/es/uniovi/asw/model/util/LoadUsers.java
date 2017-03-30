@@ -1,4 +1,4 @@
-package es.uniovi.asw.business;
+package es.uniovi.asw.model.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import es.uniovi.asw.dao.Ciudadano;
+import es.uniovi.asw.model.Participant;
 
 /**
  * Main application
@@ -29,8 +29,8 @@ public class LoadUsers {
 	 * @param ruta
 	 * @return
 	 */
-	public static List<Ciudadano> cargarFichero(String ruta) {
-		List<Ciudadano> participants = new ArrayList<Ciudadano>();
+	public static List<Participant> cargarFichero(String ruta) {
+		List<Participant> participants = new ArrayList<Participant>();
 		try {
 			FileInputStream file = new FileInputStream(new File(ruta));
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -67,7 +67,7 @@ public class LoadUsers {
 				Date date = new SimpleDateFormat("dd-MMM-yyyy").parse(fecha);
 			    java.sql.Date nacimiento = new java.sql.Date(date.getTime());
 
-				Ciudadano ciudadano = new Ciudadano(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
+				Participant ciudadano = new Participant(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
 						aux.get(4).toString(), aux.get(5).toString(), aux.get(6).toString(), nacimiento);
 
 				participants.add(ciudadano);

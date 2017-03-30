@@ -1,13 +1,13 @@
-package es.uniovi.asw.business;
+package es.uniovi.asw.model.util;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
-import es.uniovi.asw.dao.Ciudadano;
+import es.uniovi.asw.model.Participant;
 
 public class Leer {
 	
-	public static ArrayList<Ciudadano> Ciudadanos(ArrayList<Ciudadano> ciudadanos, String ruta){
+	public static ArrayList<Participant> Ciudadanos(ArrayList<Participant> ciudadanos, String ruta){
 		String[] subcadenas = ruta.split("\\.");
 		String extension = subcadenas[subcadenas.length-1];
 		extension = extension.toLowerCase();
