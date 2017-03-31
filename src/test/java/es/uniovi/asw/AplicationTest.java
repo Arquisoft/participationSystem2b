@@ -62,6 +62,10 @@ public class AplicationTest {
 		servComment.addComment(comment);
 		
 		assertNotNull(servSug.getSuggestionByParticipant(c));
+		servComment.deleteComment(comment);
+		servSug.deleteSuggestion(sug);
+		
+		servPart.deleteParticipantByDni("564613I");
 		
 	}
 	@SuppressWarnings("deprecation")

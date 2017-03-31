@@ -77,7 +77,9 @@ public class Comment implements Serializable {
 	public Date getDate() {
 		return date;
 	}
-
+	public Long getId(){
+		return this.id;
+	}
 
 	public void setDate(Date date) {
 		this.date = date;

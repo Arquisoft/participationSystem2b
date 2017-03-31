@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import es.uniovi.asw.model.Comment;
+import es.uniovi.asw.model.Suggestion;
 import es.uniovi.asw.persistence.CommentDao;
 import es.uniovi.asw.persistence.util.Jpa;
 
@@ -22,8 +23,14 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public void deleteComment(Comment comment) {
-		// TODO Auto-generated method stub
 
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		Comment c =Jpa.getManager().find(Comment.class, comment.getId());
+		Jpa.getManager().remove(c);
+		
+		trx.commit();
 	}
 
 	@Override
