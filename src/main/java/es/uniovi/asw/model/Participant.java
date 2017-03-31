@@ -1,12 +1,22 @@
 package es.uniovi.asw.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Participant {
 
-	private String nombre, apellidos, email, direccion, nacionalidad, dni, password;
+	private String nombre;
+	private String apellidos;
+	private String email;
+	private String direccion;
+	private String nacionalidad;
+	private String dni;
+	private String password;
 	private Date fecha_nacimiento;
+	private List<Comment> comments;
+	private List<Suggestion> suggestions;
 
 	public Participant(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
 			Date fecha_nacimiento) {
@@ -17,7 +27,28 @@ public class Participant {
 		this.nacionalidad = nacionalidad;
 		this.dni = dni;
 		this.fecha_nacimiento = fecha_nacimiento;
+		this.comments= new ArrayList<Comment>();
+		this.suggestions=new ArrayList<Suggestion>();
 	}
+	
+	public void addComment(Comment comment){
+		this.comments.add(comment);
+	}
+	public void addSuggestion(Suggestion suggestion){
+		this.suggestions.add(suggestion);
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+
+	public List<Suggestion> getSuggestions() {
+		return suggestions;
+	}
+
+
 
 	public String getNombre() {
 		return nombre;
