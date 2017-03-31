@@ -1,12 +1,31 @@
 package es.uniovi.asw.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
-public class Participant {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@Table(name="PARTICIPANT")
+public class Participant implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
 	private String nombre;
 	private String apellidos;
 	private String email;
@@ -14,10 +33,15 @@ public class Participant {
 	private String nacionalidad;
 	private String dni;
 	private String password;
+	@Temporal(TemporalType.DATE)
 	private Date fecha_nacimiento;
-	private List<Comment> comments;
-	private List<Suggestion> suggestions;
+	
+	@OneToMany(mappedBy="participant")
+	private Set<Comment> comments = new HashSet<Comment>();
+	@OneToMany(mappedBy="participant")
+	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 
+	Participant(){}
 	public Participant(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
 			Date fecha_nacimiento) {
 		this.nombre = nombre;
@@ -27,25 +51,29 @@ public class Participant {
 		this.nacionalidad = nacionalidad;
 		this.dni = dni;
 		this.fecha_nacimiento = fecha_nacimiento;
-		this.comments= new ArrayList<Comment>();
-		this.suggestions=new ArrayList<Suggestion>();
 	}
 	
+	
+	
+	
+	Set<Comment> _getComments() {
+		return this.comments;
+	}
+	Set<Suggestion> _getSuggestions() {
+		return this.suggestions;
+	}
+	
+	public Set<Comment> getComments() {
+		return new HashSet<Comment>(this.comments);
+	}
+	public Set<Suggestion> getSuggestions() {
+		return new HashSet<Suggestion>(this.suggestions);
+	}
 	public void addComment(Comment comment){
 		this.comments.add(comment);
 	}
 	public void addSuggestion(Suggestion suggestion){
 		this.suggestions.add(suggestion);
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-
-
-	public List<Suggestion> getSuggestions() {
-		return suggestions;
 	}
 
 
@@ -113,31 +141,28 @@ public class Participant {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Long getId(){
+		return this.id;
+	}
 
 	@Override
 	public String toString() {
-		return "Ciudadano [nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email + ", direccion="
+		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email + ", direccion="
 				+ direccion + ", nacionalidad=" + nacionalidad + ", dni=" + dni + ", password=" + password
 				+ ", fecha_nacimiento=" + fecha_nacimiento + "]";
 	}
 	
 	
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
-		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((fecha_nacimiento == null) ? 0 : fecha_nacimiento.hashCode());
-		result = prime * result + ((nacionalidad == null) ? 0 : nacionalidad.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -147,44 +172,13 @@ public class Participant {
 		if (getClass() != obj.getClass())
 			return false;
 		Participant other = (Participant) obj;
-		if (apellidos == null) {
-			if (other.apellidos != null)
-				return false;
-		} else if (!apellidos.equals(other.apellidos))
-			return false;
-		if (direccion == null) {
-			if (other.direccion != null)
-				return false;
-		} else if (!direccion.equals(other.direccion))
-			return false;
 		if (dni == null) {
 			if (other.dni != null)
 				return false;
 		} else if (!dni.equals(other.dni))
 			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (nacionalidad == null) {
-			if (other.nacionalidad != null)
-				return false;
-		} else if (!nacionalidad.equals(other.nacionalidad))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
 		return true;
 	}
-
 	/**
 	 * Metodo para crear la password de forma aleatoria.
 	 */
@@ -217,4 +211,5 @@ public class Participant {
 		pos = random.nextInt(simbolos.length);
 		password += simbolos[pos];
 	}
+	
 }
