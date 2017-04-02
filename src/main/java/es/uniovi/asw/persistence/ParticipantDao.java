@@ -14,7 +14,10 @@ public interface ParticipantDao {
 
 	public void addParticipant(Participant participant);
 
-	void deleteParticipantByDni(String dni);
+	public void deleteParticipantByDni(String dni);
+
+	public void init();
+	public Participant findLogableUser(String usuario, String password);
 
 
 }

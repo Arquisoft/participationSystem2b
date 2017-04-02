@@ -48,8 +48,8 @@ public class BBDD {
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("insert into PARTICIPANT ");
-			sb.append("(nombre, apellidos, email, direccion, nacionalidad, dni, fecha_nacimiento, password) ");
-			sb.append("values (?,?,?,?,?,?,?,?)");
+			sb.append("(nombre, apellidos, email, direccion, nacionalidad, dni, fecha_nacimiento, password,usuario) ");
+			sb.append("values (?,?,?,?,?,?,?,?,?)");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			for (Participant ciu : ciudadanos) {
 				Date fecha = new Date(ciu.getFecha_nacimiento().getTime());
@@ -61,6 +61,7 @@ public class BBDD {
 				ps.setString(6, ciu.getDni());
 				ps.setDate(7, fecha);
 				ps.setString(8, ciu.getPassword());
+				ps.setString(9, ciu.getUsuario());
 				ps.execute();
 			}
 			con.close();
@@ -109,7 +110,7 @@ public class BBDD {
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE PARTICIPANT "
-					+ "set nombre= ?, apellidos= ?, email= ?, fecha_nacimiento= ?, direccion= ?, nacionalidad= ?"
+					+ "set nombre= ?, apellidos= ?, email= ?, fecha_nacimiento= ?, direccion= ?, nacionalidad= ?, usuario= ? "
 					+ "where dni=?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			ps.setString(1, participant.getNombre());
@@ -118,7 +119,8 @@ public class BBDD {
 			ps.setDate(4, fecha);
 			ps.setString(5, participant.getDireccion());
 			ps.setString(6, participant.getNacionalidad());
-			ps.setString(7, participant.getDni());
+			ps.setString(7, participant.getUsuario());
+			ps.setString(8, participant.getDni());
 			ps.executeUpdate();
 			ps.close();
 			con.close();
@@ -141,7 +143,7 @@ public class BBDD {
 			while (rs.next()) {
 				ciudadano = new Participant(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("email"),
 						rs.getString("direccion"), rs.getString("nacionalidad"), rs.getString("dni"),
-						rs.getDate("fecha_nacimiento"));
+						rs.getDate("fecha_nacimiento"),rs.getString("usuario"));
 				ciudadano.setPassword(rs.getString("password"));
 			}
 			rs.close();

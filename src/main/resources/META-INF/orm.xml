@@ -10,6 +10,10 @@
 		<query>select c from Participant c where c.dni = ?1</query>
 	</named-query>
 
+	<named-query name="Participant.findLogableUser">
+		<query>select s from Participant s where s.usuario = ?1 and s.password = ?2</query>
+	</named-query>
+	
 	<named-query name="Suggestion.findByPId">
 		<query>select s from Suggestion s where s.participant = ?1</query>
 	</named-query>

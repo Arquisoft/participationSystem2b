@@ -14,4 +14,10 @@ public class ParticipantFinder {
 		if(r.isEmpty())return null;
 		return r.get(0);
 	}
+
+	public static Participant findLogableUser(String usuario, String password) {
+		List<Participant> p = Jpa.getManager().createNamedQuery("Participant.findLogableUser",Participant.class).setParameter(1, usuario).setParameter(2, password).getResultList();
+		if(p.isEmpty()) return null;
+		return p.get(0);
+	}
 }

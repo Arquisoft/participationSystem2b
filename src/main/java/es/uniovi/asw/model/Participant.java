@@ -33,6 +33,7 @@ public class Participant implements Serializable{
 	private String nacionalidad;
 	private String dni;
 	private String password;
+	private String usuario;
 	@Temporal(TemporalType.DATE)
 	private Date fecha_nacimiento;
 	
@@ -43,7 +44,7 @@ public class Participant implements Serializable{
 
 	Participant(){}
 	public Participant(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
-			Date fecha_nacimiento) {
+			Date fecha_nacimiento, String user) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
@@ -51,11 +52,18 @@ public class Participant implements Serializable{
 		this.nacionalidad = nacionalidad;
 		this.dni = dni;
 		this.fecha_nacimiento = fecha_nacimiento;
+		this.usuario=user;
 	}
 	
 	
 	
 	
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 	Set<Comment> _getComments() {
 		return this.comments;
 	}
@@ -147,9 +155,9 @@ public class Participant implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email + ", direccion="
-				+ direccion + ", nacionalidad=" + nacionalidad + ", dni=" + dni + ", password=" + password
-				+ ", fecha_nacimiento=" + fecha_nacimiento + "]";
+		return "Participant [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
+				+ ", direccion=" + direccion + ", nacionalidad=" + nacionalidad + ", dni=" + dni + ", password="
+				+ password + ", usuario=" + usuario + ", fecha_nacimiento=" + fecha_nacimiento + "]";
 	}
 	
 	
@@ -211,5 +219,6 @@ public class Participant implements Serializable{
 		pos = random.nextInt(simbolos.length);
 		password += simbolos[pos];
 	}
+	
 	
 }

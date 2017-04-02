@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Inicio Sesion</title>
+<link href="webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css" rel="stylesheet" media="screen"/>
+<link href="webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css" rel="stylesheet" media="screen"/> 
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Participation System</a>
+
+
+</nav>
+
+<form  class="form-control form-vertical" role="form" action="loguearse"  method="POST">
+	<div>
+	
+	<table>
+      <tr>
+        <th>Inicio Sesion</th>
+      </tr>
+      <tr>
+        <td>Usuario: </td>
+        <td> <input type="text"  name="usuario" /></td>
+        
+      </tr>
+      <tr>
+      	<td>Contraseña: </td>
+      	<td><input type="password"  name="password" /></td>
+      </tr>
+    </table>
+    <input type="submit" value="Iniciar" />
+    </div>
+</form>
+
+</body>
+</html>

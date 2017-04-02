@@ -13,5 +13,8 @@ public interface ParticipantService {
 	public void deleteParticipantByDni(String dni);
 
 	public void addParticipant(Participant participant);
+	public void init();
+
+	public Participant findLogableUser(String usuario, String password);
 
 }

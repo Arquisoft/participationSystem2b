@@ -39,4 +39,15 @@ public class ParticipantServiceImpl implements ParticipantService {
 		dao.deleteParticipantByDni(dni);
 	}
 
+
+	@Override
+	public void init() {
+		dao.init();
+	}
+
+	@Override
+	public Participant findLogableUser(String usuario, String password) {
+		return dao.findLogableUser(usuario, password);
+	}
+
 }

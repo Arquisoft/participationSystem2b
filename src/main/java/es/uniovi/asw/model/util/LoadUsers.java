@@ -68,7 +68,7 @@ public class LoadUsers {
 			    java.sql.Date nacimiento = new java.sql.Date(date.getTime());
 
 				Participant ciudadano = new Participant(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
-						aux.get(4).toString(), aux.get(5).toString(), aux.get(6).toString(), nacimiento);
+						aux.get(4).toString(), aux.get(5).toString(), aux.get(6).toString(), nacimiento,aux.get(0).toString()+aux.get(1).toString());
 
 				participants.add(ciudadano);
 			}
