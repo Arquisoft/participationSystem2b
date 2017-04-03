@@ -45,12 +45,12 @@ public class MainController {
         Participant user = Service.getParticipantService().findLogableUser(usuario,password);
         if(user!=null){
         	sesion.setAttribute("user", user);
-        	List<Participant> lista = new ArrayList<Participant>();
-        	
-        	List<Suggestion> suggestions= new ArrayList<Suggestion>();// Service.getSuggestionService().getAllSuggestions();
-        	suggestions.add(new Suggestion((Participant)sesion.getAttribute("user"), "prueba", "jeje", "jaja"));
-        	suggestions.add(new Suggestion((Participant)sesion.getAttribute("user"), "Propuesta 2", "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas , las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.", "cateogria1"));
-        	model.addAttribute("suggestions",suggestions);
+//        	List<Participant> lista = new ArrayList<Participant>();
+//        	
+//        	List<Suggestion> suggestions= new ArrayList<Suggestion>();// Service.getSuggestionService().getAllSuggestions();
+//        	suggestions.add(new Suggestion((Participant)sesion.getAttribute("user"), "prueba", "jeje", "jaja"));
+//        	suggestions.add(new Suggestion((Participant)sesion.getAttribute("user"), "Propuesta 2", "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas , las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.", "cateogria1"));
+//        	model.addAttribute("suggestions",suggestions);
         	return "suggestions";
         }
     	return "login";
@@ -64,9 +64,20 @@ public class MainController {
     }
     
     @RequestMapping("/mostrarPropuestas")
-    public String mostrarPropuestas(HttpSession sesion,Model model, @ModelAttribute Message message) {
+    public String mostrarPropuestas(HttpSession sesion,Model model) {
     	// es de prueba, habria que llamr al servicefindAllSuggestions
-    	model.addAttribute("suggestions",((Participant)sesion.getAttribute("user")).getSuggestions());
+    //	model.addAttribute("suggestions",((Participant)sesion.getAttribute("user")).getSuggestions());
+    	return "suggestions";
+    }
+    @RequestMapping("/crearPropuesta")
+    public String crearPropuesta(HttpSession sesion,Model model) {
+    	return "addSuggestion";
+    }
+    @RequestMapping("/anadirPropuesta")
+    public String anadirPropuesta(HttpSession sesion,Model model,
+    		@RequestParam String titulo, @RequestParam String categoria,@RequestParam String propuesta ) {
+    	Suggestion sug = new Suggestion((Participant)sesion.getAttribute("user"), titulo, propuesta, categoria);
+    	Service.getSuggestionService().addSuggestion(sug);
     	return "suggestions";
     }
     
@@ -77,4 +88,8 @@ public class MainController {
     	return "suggestions";
     }
 
+    @ModelAttribute("suggestions")
+    public List<Suggestion> getSuggestions(){
+    	return Service.getSuggestionService().getAllSuggestions();
+    }
 }

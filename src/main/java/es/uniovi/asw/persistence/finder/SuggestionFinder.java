@@ -12,6 +12,10 @@ public class SuggestionFinder {
 		return Jpa.getManager().createNamedQuery("Suggestion.findByPId",Suggestion.class).setParameter(1, part).getResultList();
 		
 	}
+
+	public static List<Suggestion> findAll() {
+		return Jpa.getManager().createNamedQuery("Suggestion.findAll",Suggestion.class).getResultList();
+	}
 	
 	
 

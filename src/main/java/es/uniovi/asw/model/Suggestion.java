@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="SUGGESTION")
@@ -37,8 +36,7 @@ public class Suggestion {
 	private int positiveVotes;
 	@Column(name="negative_votes")
 	private int negativeVotes;
-	@Transient
-	private String suggestPreview;
+
 	Suggestion(){}
 	public Suggestion(Participant participant,String titulo,String suggestion,String category) {
 		this.title=titulo;
@@ -46,29 +44,22 @@ public class Suggestion {
 		this.suggestion=suggestion;
 		this.category=category;
 		this.creationDate= new Date();
-		setPreview();
 		Association.AddSuggestion.link(this,participant);
 	}
 	
 	
 
-	private void setPreview(){
-		if(suggestion.contains(" ")){
-			String[] trozos = this.suggestion.split(" ");
-			if(trozos.length>11){
-				this.suggestPreview= trozos[0]+ " "+trozos[1]+ " "+trozos[2]+ " "+trozos[3]+ " "+trozos[4]+ " "+trozos[5]
-						+ " "+trozos[6]+ " "+trozos[7]+ " "+trozos[8]+" ...";
-			}else{
-				this.suggestPreview= suggestion;
-			}
-		}
-		else{
-			this.suggestPreview= suggestion;
-		}
-	}
+	
 	public String getSuggestionPreview(){
-		
-		return this.suggestPreview;
+		String suggestPreview="";
+		if(suggestion.length()>200){
+			suggestPreview=suggestion.substring(0, 200);
+			suggestPreview+=" ...";
+
+		}else{
+			suggestPreview= suggestion;
+		}
+		return suggestPreview;
 	}
 	Set<Comment> _getComments() {
 		return this.comments;
