@@ -3,6 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Inicio Sesion</title>
 <link href="webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css" rel="stylesheet" media="screen"/>
+
 <link href="webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css" rel="stylesheet" media="screen"/> 
 </head>
 <body>
@@ -31,9 +32,20 @@
   </div>
 </nav>
 
-<div class="list-group" th:each="sug: ${suggestions}">
-  <a href="#" class="list-group-item list-group-item-action list-group-item-success" th:text="${sug.title}"></a>
-
+<div class="container" th:each="sug : ${suggestions}">
+	<div class="card text-center" style="margin-top: 50px">
+	  <div class="card-header">
+	    <span th:text="${sug.title}"></span>
+	  </div>
+	  <div class="card-block" th:with="sugId=${sug.id}">
+	    <h4 class="card-title" th:text="${sug.participant.usuario}"></h4>
+	    <p class="card-text" th:text="${sug.suggestionPreview}"></p>
+	    <a href="#" class="btn btn-primary">Ver propuesta</a>
+	  </div>
+	  <div class="card-footer text-muted">
+	     <span th:text="${sug.creationDate}"></span>
+	  </div>
+</div>
 </div>
 </body>
 </html>
