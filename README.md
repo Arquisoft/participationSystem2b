@@ -15,5 +15,9 @@ Skeleton of participants module
 - Jose Emilio Labra Gayo (@labra)
 - Ignacio Martin Franco (@NachoMartin123)
 - Hugo Pérez Martínez (@hugoPerezMartinez)
+<<<<<<< HEAD
 
 
+=======
+- Daniel Orviz Suarez (@danielorviz)
+>>>>>>> a9dee8c2e41adce5dd684d3b4e800bdcf7cf4efc

@@ -2,7 +2,7 @@ Buenos dias Luis
 Usted a sido dado de alta con exito en el sistema de particion ciudadana.
 Sus credenciales son:
 	Usuario: luis@example.com
-	Contraseña: Mazpqs5'
+	Contraseña: Gwfral5*
 
 Un saludo y gracias por darse de alta.
 

@@ -10,34 +10,82 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uniovi.asw.model.Comment;
 import es.uniovi.asw.model.Participant;
+import es.uniovi.asw.model.Suggestion;
 import es.uniovi.asw.model.util.CrearCorreo;
 import es.uniovi.asw.model.util.Leer;
 import es.uniovi.asw.model.util.LoadUsers;
 import es.uniovi.asw.model.util.Xlsx;
 import es.uniovi.asw.persistence.BBDD;
+import es.uniovi.asw.service.Service;
+import es.uniovi.asw.service.impl.CommentServiceImpl;
+import es.uniovi.asw.service.impl.ParticipantServiceImpl;
+import es.uniovi.asw.service.impl.SuggestionServiceImpl;
 
 public class AplicationTest {
 
 	@Before
 	public void before() {
 		BBDD.deleteAllParticipants();
+		//Service.getParticipantService().init();
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
+	public void jpaTest(){
+		
+		CommentServiceImpl servComment=Service.getCommentService();
+		ParticipantServiceImpl servPart= Service.getParticipantService();
+		SuggestionServiceImpl servSug=Service.getSuggestionService();
+//		Participant user = new Participant("Daniel", "Orviz", "orviz@prueba", "dir", "España", "23453212Y",
+//				new Date(1995 - 1900, 2, 14),"DanielOrviz");
+		assertNotNull(servPart.findParticipant("23453212Y"));
+//		user  = new Participant("Admin", "1", "admin@prueba", "dir", "España", "65431789T",
+//				new Date(1995 - 1900, 2, 14),"Admin1");
+		assertNotNull(servPart.findParticipant("65431789T"));
+		// creamos un participant
+		Participant c = new Participant("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
+				new Date(1995 - 1900, 2, 25),"PepeGarcia");
+		
+		//lo metemos en la base de datos
+		servPart.addParticipant(c);
+		assertNotNull(Service.getParticipantService().findParticipant("564613I"));
+		// creamos una sugerencia
+		Suggestion sug = new Suggestion(c, "prueba", "para probar", "categoria");
+		assertTrue(c.getSuggestions().contains(sug));
+		servSug.addSuggestion(sug);
+		
+		Comment comment = new Comment(c, sug, "comentario");
+		
+		assertTrue(sug.getComments().contains(comment));
+		assertTrue(c.getComments().contains(comment));
+		servComment.addComment(comment);
+		
+		assertNotNull(servSug.getSuggestionByParticipant(c));
+		servComment.deleteComment(comment);
+		servSug.deleteSuggestion(sug);
+		
+		servPart.deleteParticipantByDni("564613I");
+		
+	}
+	@SuppressWarnings("deprecation")
+	@Test
 	public void addCiudadanoTest() {
+		
+		
 		List<Participant> ciudadanos = new ArrayList<Participant>();
 
 		Participant c = new Participant("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
-				new Date(1995 - 1900, 2, 25));
+				new Date(1995 - 1900, 2, 25),"PepeGarcia");
+
 		ciudadanos.add(c);
 		BBDD.addParticipants(ciudadanos);
 
@@ -155,7 +203,7 @@ public class AplicationTest {
 	@Test
 	public void testCrearCorreo() {
 		Participant c = new Participant("Marcos", "Garcia", "marcos@mail.com", "C/ peru 3", "Español", "87963215P",
-				new Date(1990 - 1900, 2, 10));
+				new Date(1990 - 1900, 2, 10),"MarcosGarcia");
 		c.crearPassword();
 		assertNotNull(c.getPassword());
 
@@ -214,7 +262,7 @@ public class AplicationTest {
 	public void testEliminarCiudadano() {
 		List<Participant> ciudadanos = new ArrayList<Participant>();
 		
-		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A", new Date(18, 7, 1995));
+		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A", new Date(18, 7, 1995),"HugoPerez");
 		
 		ciudadanos.add(ciudadano);
 		BBDD.addParticipants(ciudadanos);
@@ -231,7 +279,7 @@ public class AplicationTest {
 	@Test
 	public void testEliminarTodosCiudadanos() {
 		List<Participant> ciudadanos = new ArrayList<Participant>();
-		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A", new Date(18, 7, 1995));
+		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A", new Date(18, 7, 1995),"HugoPerez");
 		
 		ciudadanos.add(ciudadano);
 		BBDD.addParticipants(ciudadanos);
@@ -249,7 +297,7 @@ public class AplicationTest {
 	public void testCrearPassword() {
 		List<Participant> ciudadanos = new ArrayList<Participant>();
 		
-		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "1234A", new Date(18, 7, 1995));
+		Participant ciudadano = new Participant("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "1234A", new Date(18, 7, 1995),"HugoPerez");
 		
 		ciudadanos.add(ciudadano);
 		BBDD.addParticipants(ciudadanos);

@@ -28,7 +28,7 @@ public class Csv implements Formatos {
 				Date date = new SimpleDateFormat("dd/mm/yyyy").parse(trozos[3]);
 				java.sql.Date nacimiento = new java.sql.Date(date.getTime());
 				Participant ciu = new Participant(trozos[0], trozos[1], trozos[2], trozos[4], trozos[5], trozos[6],
-						nacimiento);
+						nacimiento,trozos[0]+trozos[1]);
 				ciudadanos.add(ciu);
 			}
 

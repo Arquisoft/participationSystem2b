@@ -1,0 +1,15 @@
+package es.uniovi.asw.persistence;
+
+import java.util.List;
+
+import es.uniovi.asw.model.Participant;
+import es.uniovi.asw.model.Suggestion;
+
+public interface SuggestionDao {
+
+	public void addSuggestion(Suggestion suggestion);
+	public void deleteSuggestion(Suggestion suggestion);
+	public void updateSuggestion(Suggestion suggestion);
+	public List<Suggestion> getAllSuggestions();
+	List<Suggestion> getSuggestionByParticipant(Participant participant);
+}
