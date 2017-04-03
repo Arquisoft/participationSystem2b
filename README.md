@@ -13,9 +13,7 @@ Skeleton of participants module
 
 - Herminio García González (@herminiogg)
 - Jose Emilio Labra Gayo (@labra)
-<<<<<<< HEAD
 - Ignacio Martin Franco (@NachoMartin123)
-=======
 - Hugo Pérez Martínez (@hugoPerezMartinez)
->>>>>>> 02b090cdab27903fd30f9e08e4fad0b7ad712118
+
 
