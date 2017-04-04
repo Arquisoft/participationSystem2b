@@ -48,7 +48,7 @@ public class MainController {
 			else
 				resultado = "principalUsuario";
 			
-			sesion.setAttribute(resultado, user);
+			sesion.setAttribute("user", user);
 		}
 		return resultado;
 	}
@@ -91,4 +91,11 @@ public class MainController {
 	public List<Suggestion> getSuggestions() {
 		return Service.getSuggestionService().getAllSuggestions();
 	}
+	
+	@RequestMapping("/cerrarSesion")
+	public String cerrarSesion(HttpSession session) {
+		session.setAttribute("user", null);
+		return "login";
+	}
+	
 }
