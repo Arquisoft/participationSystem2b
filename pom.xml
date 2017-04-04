@@ -15,6 +15,13 @@
 	</parent>
 	
 	<dependencies>
+		<dependency><!-- dependencia de cucumber -->
+		    <groupId>info.cukes</groupId>
+		    <artifactId>cucumber-java</artifactId>
+		    <version>1.2.5</version>
+		    <scope>test</scope>
+		</dependency>
+		
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-kafka</artifactId>
