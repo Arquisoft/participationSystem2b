@@ -9,20 +9,16 @@
 <div th:replace="/fragments/nav :: nav">
 
 </div>
-<h2 align="center" style="margin-top:20px; margin-bottom:50px;">Propuestas</h2>
-<div class="container" th:each="sug : ${suggestions}">
-	<div class="card text-center" style="margin-top: 50px">
-	  <div class="card-header">
-	    <span th:text="${sug.title}"></span>
-	  </div>
-	  <div class="card-block">
-	    <h4 class="card-title" th:text="${sug.participant.usuario}"></h4>
-	    <p class="card-text" th:text="${sug.suggestionPreview}"></p>
-	    <a th:href="@{/verPropuesta/{id}(id=${sug.id})}" class="btn btn-primary">Ver propuesta</a>
-	  </div>
-	  <div class="card-footer text-muted">
-	     <span th:text="${sug.creationDate}"></span>
-	  </div>
+<h2 align="center" th:text="${suggestion.title}" style="margin-top:20px; margin-bottom:50px;"></h2>
+
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading text-white" >
+    <h3 class="panel-title" th:text="${suggestion.participant.usuario}"></h3>
+  </div>
+  <div class="panel-body" th:text="${suggestion.suggestion}">
+    
+  </div>
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

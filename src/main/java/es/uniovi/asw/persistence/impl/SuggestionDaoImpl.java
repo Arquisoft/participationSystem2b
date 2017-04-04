@@ -63,4 +63,12 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		return SuggestionFinder.findAll();
 	}
 
+	@Override
+	public Object findSugById(Long id) {
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		return SuggestionFinder.findById(id);
+	}
+
 }
