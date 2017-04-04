@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="sugerencia : ${suggestions}">
-				<td th:text="${sugerencia.title}"></td>
+				<td><a th:text="${sugerencia.title}" th:href="@{/verPropuesta/{id}(id=${sugerencia.id})}"/></td>
 				<td th:text="${sugerencia.category}" />
 				<td th:text="${sugerencia.participant.nombre}" />
 				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />

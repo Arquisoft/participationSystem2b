@@ -1,26 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Inicio Sesion</title>
-<link th:href="@{/webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css}" rel="stylesheet" media="screen"/>
-<link th:href="@{/webjars/github-com-twbs-bootstrap/v3.3.7/docs/dist/css/bootstrap-theme.css}" rel="stylesheet" media="screen"/> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Sugerencia</title>
+	<link th:href="@{/webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css}" rel="stylesheet" media="screen"/>
+	<link th:href="@{/webjars/github-com-twbs-bootstrap/v3.3.7/docs/dist/css/bootstrap-theme.css}" rel="stylesheet" media="screen"/> 
 </head>
 <body>
-<div th:replace="/fragments/nav :: nav">
+	<div th:replace="/fragments/nav :: nav">
 
-</div>
-<h2 align="center" th:text="${suggestion.title}" style="margin-top:20px; margin-bottom:50px;"></h2>
+	</div>
+	<h2 align="center" th:text="${suggestion.title}" style="margin-top:20px; margin-bottom:50px;"></h2>
 
-<div class="container">
-<div class="panel panel-primary">
-  <div class="panel-heading text-white" >
-    <h3 class="panel-title" th:text="${suggestion.participant.usuario}"></h3>
-  </div>
-  <div class="panel-body" th:text="${suggestion.suggestion}">
-    
-  </div>
-</div>
-</div>
+	<div class="container">
+		<div class="panel panel-primary">
+  			<p th:text="${suggestion.suggestion}" />
+  			<textarea name="oomentario" />
+		</div>
+	</div>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
