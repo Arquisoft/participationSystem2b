@@ -1,6 +1,9 @@
 package es.uniovi.asw.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +27,12 @@ public class MainController {
 
 	@Autowired
 	private KafkaProducer kafkaProducer;
+	private List<Suggestion> sugerencias = crearListaSugerencias();
 
+	private List<Suggestion> crearListaSugerencias() {
+		return Service.getSuggestionService().getAllSuggestions();
+	}
+	
 	@RequestMapping("/")
 	public String landing(Model model) {
 		model.addAttribute("message", new Message());
@@ -49,6 +57,7 @@ public class MainController {
 				resultado = "principalUsuario";
 			
 			sesion.setAttribute("user", user);
+			sesion.setAttribute("sugerencias", this.sugerencias);
 		}
 		return resultado;
 	}
@@ -96,6 +105,14 @@ public class MainController {
 	public String cerrarSesion(HttpSession session) {
 		session.setAttribute("user", null);
 		return "login";
+	}
+
+	public List<Suggestion> getSugerencias() {
+		return sugerencias;
+	}
+
+	public void setSugerencias(List<Suggestion> sugerencias) {
+		this.sugerencias = sugerencias;
 	}
 	
 }
