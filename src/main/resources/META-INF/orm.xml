@@ -17,6 +17,12 @@
 	<named-query name="Suggestion.findByPId">
 		<query>select s from Suggestion s where s.participant = ?1</query>
 	</named-query>
+	<named-query name="Suggestion.findAll">
+		<query>select s from Suggestion s</query>
+	</named-query>
+	<named-query name="Suggestion.findById">
+		<query>select s from Suggestion s where s.id = ?1</query>
+	</named-query>
 	
 
 </entity-mappings>

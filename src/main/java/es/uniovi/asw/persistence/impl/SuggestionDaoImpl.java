@@ -57,8 +57,18 @@ public class SuggestionDaoImpl implements SuggestionDao{
 
 	@Override
 	public List<Suggestion> getAllSuggestions() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		return SuggestionFinder.findAll();
+	}
+
+	@Override
+	public Object findSugById(Long id) {
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		return SuggestionFinder.findById(id);
 	}
 
 }

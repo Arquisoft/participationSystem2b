@@ -11,6 +11,7 @@ public interface SuggestionService {
 	public void deleteSuggestion(Suggestion suggestion);
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getAllSuggestions();
-	List<Suggestion> getSuggestionByParticipant(Participant participant);
+	public List<Suggestion> getSuggestionByParticipant(Participant participant);
+	public Object findSugById(Long id);
 
 }
