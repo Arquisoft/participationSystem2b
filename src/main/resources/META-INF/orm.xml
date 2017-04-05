@@ -24,5 +24,9 @@
 		<query>select s from Suggestion s where s.id = ?1</query>
 	</named-query>
 	
+	<named-query name="Comment.findBySugId">
+		<query>select c from Comment c where c.suggestion.id = ?1</query>
+	</named-query>
+	
 
 </entity-mappings>

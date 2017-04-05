@@ -39,9 +39,9 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-		Suggestion s = Jpa.getManager().find(Suggestion.class, suggestion.getId());
-		if(s!=null)
-			Jpa.getManager().merge(s);
+		
+		if(Jpa.getManager().find(Suggestion.class, suggestion.getId())!=null)
+			Jpa.getManager().merge(suggestion);
 		trx.commit();
 		
 		
@@ -64,7 +64,7 @@ public class SuggestionDaoImpl implements SuggestionDao{
 	}
 
 	@Override
-	public Object findSugById(Long id) {
+	public Suggestion findSugById(Long id) {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();

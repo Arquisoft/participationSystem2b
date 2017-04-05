@@ -1,13 +1,12 @@
 package es.uniovi.asw.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,15 +17,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uniovi.asw.controller.producers.KafkaProducer;
 import es.uniovi.asw.hello.Message;
+import es.uniovi.asw.model.Comment;
 import es.uniovi.asw.model.Participant;
 import es.uniovi.asw.model.Suggestion;
 import es.uniovi.asw.service.Service;
 
 @Controller
+@Scope("session")
 public class MainController {
-
+/*
+ * Atributos en sesion:
+ * 		user -> contiene el Particpant logueado
+ * 		suggestion -> la sugerencia que se selecciona para ver
+ * */
 	@Autowired
 	private KafkaProducer kafkaProducer;
+	//1º Long -> id del participante
+	//2º Long -> id propuesta votada
+	//private Map<Long,Long> votosPropuestas = new HashMap<Long,Long>();
 	//private List<Suggestion> sugerencias = crearListaSugerencias();
 
 //	private List<Suggestion> crearListaSugerencias() {
@@ -36,14 +44,15 @@ public class MainController {
 	@RequestMapping("/")
 	public String landing(Model model) {
 		model.addAttribute("message", new Message());
+		model.addAttribute("comment", "");
 		return "login";
 	}
 
-	@RequestMapping("/send")
-	public String send(Model model, @ModelAttribute Message message) {
-		kafkaProducer.send("exampleTopic", message.getMessage());
-		return "redirect:/";
-	}
+//	@RequestMapping("/send")
+//	public String send(Model model, @ModelAttribute Message message) {
+//		kafkaProducer.send("exampleTopic", message.getMessage());
+//		return "redirect:/";
+//	}
 
 	@RequestMapping(value = "/loguearse", method = RequestMethod.POST)
 	public String loguearse(HttpSession sesion, Model model, @RequestParam String usuario,
@@ -96,10 +105,48 @@ public class MainController {
 	}
 
 	@RequestMapping("/verPropuesta/{id}")
-	public String verPropuesta(HttpSession sesion, Model model, @PathVariable("id") Long id,
-			@ModelAttribute Message message) {
+	public String verPropuesta(HttpSession sesion, Model model, @PathVariable("id") Long id) {
+		model.addAttribute("comments",Service.getCommentService().findAllCommentsBySuggestionId(id));
 		// es de prueba, habria que llamr al servicefindAllSuggestions
-		model.addAttribute("suggestion", Service.getSuggestionService().findSugById(id));
+		sesion.setAttribute("suggestion", Service.getSuggestionService().findSugById(id));
+		
+		return "showSuggestion";
+	}
+	
+	@RequestMapping("/comentar")
+	public String comentar(@RequestParam String comment ,HttpSession sesion, Model model) {
+		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
+		if(!comment.equals("")){
+			Participant p = (Participant) sesion.getAttribute("user");
+			Service.getCommentService().addComment(new Comment(p, s, comment));
+			model.addAttribute("comments",Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
+			comment="";
+			
+		}
+		System.out.println(sesion.getAttribute("suggestion"));
+		System.out.println(comment);
+		return "showSuggestion";
+	}
+	@RequestMapping("/votarPropSi")
+	public String votarPropuestaSi(HttpSession sesion, Model model) {
+		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
+		Participant p = (Participant) sesion.getAttribute("user");
+		
+		s.increasePositiveVotes();
+		Service.getSuggestionService().updateSuggestion(s);
+		sesion.setAttribute("suggestion", s);
+				
+		return "showSuggestion";
+	}
+	@RequestMapping("/votarPropiNo")
+	public String votarPropuestaNo(HttpSession sesion, Model model) {
+		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
+		Participant p = (Participant) sesion.getAttribute("user");
+		
+		s.increaseNegativeVotes();
+		Service.getSuggestionService().updateSuggestion(s);
+		sesion.setAttribute("suggestion", s);
+				
 		return "showSuggestion";
 	}
 
@@ -111,6 +158,15 @@ public class MainController {
 	public Participant getUser(HttpSession sesion) {
 		return (Participant) sesion.getAttribute("user");
 	}
+	@ModelAttribute("comments")
+	public List<Comment> getComments(HttpSession sesion) {
+		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
+		if(s!=null){
+			return Service.getCommentService().findAllCommentsBySuggestionId(s.getId());
+		}
+		return null;
+	}
+	
 	
 	@RequestMapping("/cerrarSesion")
 	public String cerrarSesion(HttpSession session) {

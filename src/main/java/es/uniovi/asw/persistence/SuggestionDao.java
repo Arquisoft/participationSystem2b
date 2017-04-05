@@ -12,5 +12,5 @@ public interface SuggestionDao {
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getAllSuggestions();
 	public List<Suggestion> getSuggestionByParticipant(Participant participant);
-	public Object findSugById(Long id);
+	public Suggestion findSugById(Long id);
 }
