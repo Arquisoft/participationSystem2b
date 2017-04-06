@@ -34,4 +34,14 @@ public class CommentServiceImpl implements CommentService {
 		return dao.findAllCommentsByParticipantId(participantId);
 	}
 
+	@Override
+	public Comment findCommentById(Long id) {
+		return dao.findCommentById(id);
+	}
+
+	@Override
+	public void updateComment(Comment comment) {
+		dao.updateComment(comment);
+	}
+
 }

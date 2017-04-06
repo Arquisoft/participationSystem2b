@@ -20,6 +20,7 @@
   			<div class="panel-body" style="text-align: justify;" th:text="${session.suggestion.suggestion}">
     			
   			</div>
+  			
   			<div class="panel-footer">
   				<form id="positive" th:action="@{/votarPropSi}">
     				<button type="submit"  class="btn btn-success">A favor</button>
@@ -55,8 +56,14 @@
 			</div>
 			
 			<div class="panel-footer">
-				<button type="button" class="btn btn-success btn-sm">A favor</button>
-				<button type="button" class="btn btn-danger btn-sm">En contra</button>
+				<form id="positive" th:action="@{/votaSiCom/{id}(id=${comment.id})}">
+					<button type="submit" class="btn btn-success btn-sm">A favor</button>
+					<span th:text="${comment.positiveVotes}" />
+				</form>
+				<form id="negative" th:action="@{/votaNoCom/{id}(id=${comment.id})}">
+					<button type="submit" class="btn btn-danger btn-sm">En contra</button>
+					<span th:text="${comment.negativeVotes}" />
+				</form>
 			</div>
 		</div>
 	</div>

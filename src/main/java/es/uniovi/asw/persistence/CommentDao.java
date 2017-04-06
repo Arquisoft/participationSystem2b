@@ -11,4 +11,7 @@ public interface CommentDao {
 	public Comment getComment(long suggId, long participId);
 	public List<Comment> findAllCommentsBySuggestionId(long suggId);
 	public List<Comment> findAllCommentsByParticipantId(long participantId);
+	public Comment findCommentById(Long id);
+	public void updateComment(Comment comment);
+	
 }

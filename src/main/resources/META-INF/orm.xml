@@ -38,5 +38,9 @@
 	<named-query name="Category.findById">
 		<query>select c from Category c where c.id = ?1</query>
 	</named-query>
+	<named-query name="Comment.findById">
+		<query>select c from Comment c where c.id = ?1</query>
+
+	</named-query>
 
 </entity-mappings>
