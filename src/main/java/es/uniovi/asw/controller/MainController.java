@@ -111,8 +111,8 @@ public class MainController {
 			Service.getCommentService().addComment(new Comment(p, s, comment));
 			model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 			comment = "";
-
 		}
+		
 		System.out.println(sesion.getAttribute("suggestion"));
 		System.out.println(comment);
 		return "showSuggestion";
@@ -130,7 +130,7 @@ public class MainController {
 		return "showSuggestion";
 	}
 
-	@RequestMapping("/votarPropiNo")
+	@RequestMapping("/votarPropNo")
 	public String votarPropuestaNo(HttpSession sesion, Model model) {
 		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
 		Participant p = (Participant) sesion.getAttribute("user");
