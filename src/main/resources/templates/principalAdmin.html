@@ -28,7 +28,8 @@
 				<th>Fecha de creacion</th>
 				<th>Numero de votos positivos</th>
 				<th>Numero de votos negativos</th>
-				<th>Gestionar</th>
+				<th>Modificar numero minimo de votos</th>
+				<th>Rechazar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,6 +40,12 @@
 				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />
 				<td th:text="${sugerencia.positiveVotes}" />
 				<td th:text="${sugerencia.negativeVotes}" />
+				<td>
+					<form th:action="@{/modificarMinimoVotos/{id}(id=${sugerencia.id})}" method="POST">
+					    <input id="minVotos" name="minVotos" type="number" th:value="${sugerencia.minVotos}"/>
+					    <input type="submit" value="Modificar" />
+					</form>
+				</td>
 				<td>
 					<form id="rechazar" th:action="@{/rechazarPropuesta/{id}(id=${sugerencia.id})}">
 						<button type="submit">Rechazar</button>
@@ -64,6 +71,32 @@
 		</thead>
 		<tbody>
 			<tr th:each="sugerencia : ${suggestionsRechazadas}">
+				<td th:text="${sugerencia.title}" />
+				<td th:text="${sugerencia.category.name}" />
+				<td th:text="${sugerencia.participant.nombre}" />
+				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />
+				<td th:text="${sugerencia.positiveVotes}" />
+				<td th:text="${sugerencia.negativeVotes}" />
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<h2 align="center" style="margin-top:20px; margin-bottom:50px;">Propuestas aceptadas</h2>
+<div class="container">	
+	<table class="table">
+		<thead class="thead-inverse">
+			<tr>
+				<th>Titulo</th>
+				<th>Categoria</th>
+				<th>Autor</th>
+				<th>Fecha de creacion</th>
+				<th>Numero de votos positivos</th>
+				<th>Numero de votos negativos</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="sugerencia : ${suggestionsAceptadas}">
 				<td th:text="${sugerencia.title}" />
 				<td th:text="${sugerencia.category.name}" />
 				<td th:text="${sugerencia.participant.nombre}" />

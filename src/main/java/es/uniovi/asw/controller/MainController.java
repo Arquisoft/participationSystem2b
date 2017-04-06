@@ -206,6 +206,16 @@ public class MainController {
 		return aux;
 	}
 
+	@ModelAttribute("suggestionsAceptadas")
+	public List<Suggestion> getSuggestionsAceptadas() {
+		List<Suggestion> suggestions = Service.getSuggestionService().getAllSuggestions();
+		List<Suggestion> aux = new ArrayList<Suggestion>();
+		for (Suggestion suggestion : suggestions)
+			if (suggestion.getEstado().equals(EstadoPropuesta.Aceptada))
+				aux.add(suggestion);
+		return aux;
+	}
+
 	@ModelAttribute("user")
 	public Participant getUser(HttpSession sesion) {
 		return (Participant) sesion.getAttribute("user");
@@ -227,6 +237,19 @@ public class MainController {
 		Service.getSuggestionService().updateSuggestion(suggestion);
 		model.addAttribute("suggestions", getSuggestions());
 		model.addAttribute("suggestionsRechazadas", getSuggestionsRechazadas());
+		model.addAttribute("suggestionsAceptadas", getSuggestionsAceptadas());
+		return "principalAdmin";
+	}
+
+	@RequestMapping("/modificarMinimoVotos/{id}")
+	public String modificarMinimoVotos(HttpSession session, @PathVariable("id") Long id,
+			@RequestParam("minVotos") int votos, Model model) {
+		Suggestion suggestion = Service.getSuggestionService().findSugById(id);
+		suggestion.setMinVotos(votos);
+		Service.getSuggestionService().updateSuggestion(suggestion);
+		model.addAttribute("suggestions", getSuggestions());
+		model.addAttribute("suggestionsRechazadas", getSuggestionsRechazadas());
+		model.addAttribute("suggestionsAceptadas", getSuggestionsAceptadas());
 		return "principalAdmin";
 	}
 }

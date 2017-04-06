@@ -44,6 +44,8 @@ public class Suggestion {
 	private int negativeVotes;
 	@Enumerated(EnumType.STRING)
 	private EstadoPropuesta status;
+	@Column(name = "MINIMO_VOTOS")
+	private int minVotos;
 
 	Suggestion() {
 	}
@@ -57,6 +59,7 @@ public class Suggestion {
 		Association.AddSuggestion.link(this, participant);
 		Association.AddCategory.link(this, category);
 		this.status = EstadoPropuesta.Entramite;
+		this.minVotos = 30;
 	}
 
 	public String getSuggestionPreview() {
@@ -148,6 +151,16 @@ public class Suggestion {
 
 	public void setEstado(EstadoPropuesta estado) {
 		this.status = estado;
+	}
+
+	public int getMinVotos() {
+		return minVotos;
+	}
+
+	public void setMinVotos(int minVotos) {
+		this.minVotos = minVotos;
+		if (minVotos <= positiveVotes)
+			this.status = EstadoPropuesta.Aceptada;
 	}
 
 	@Override
