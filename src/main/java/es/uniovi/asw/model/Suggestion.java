@@ -194,4 +194,8 @@ public class Suggestion {
 				+ negativeVotes + "]";
 	}
 
+	public void rechazar() {
+		this.status = EstadoPropuesta.Rechazada;
+	}
+
 }

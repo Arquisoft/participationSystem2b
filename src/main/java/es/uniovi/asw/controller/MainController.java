@@ -54,7 +54,7 @@ public class MainController {
 		Participant user = Service.getParticipantService().findLogableUser(usuario, password);
 		String resultado = "login";
 		if (user != null) {
-			if (user.getUsuario().equals("Admin1"))
+			if (user.isAdmin())
 				resultado = "principalAdmin";
 			else
 				resultado = "principalUsuario";
@@ -96,7 +96,7 @@ public class MainController {
 			System.out.println(categoria);
 			Suggestion sug = new Suggestion((Participant) sesion.getAttribute("user"), titulo, propuesta, category);
 			Service.getSuggestionService().addSuggestion(sug);
-			model.addAttribute("suggestions", Service.getSuggestionService().getAllSuggestions());
+			model.addAttribute("suggestions", getSuggestions());
 			return "principalUsuario";
 		}
 		return "addSuggestion";
@@ -188,13 +188,18 @@ public class MainController {
 
 	@ModelAttribute("suggestions")
 	public List<Suggestion> getSuggestions() {
-		return Service.getSuggestionService().getAllSuggestions();
+		List<Suggestion> suggestions = Service.getSuggestionService().getAllSuggestions();
+		List<Suggestion> aux = new ArrayList<Suggestion>();
+		for (Suggestion suggestion : suggestions)
+			if (suggestion.getEstado().equals(EstadoPropuesta.Entramite))
+				aux.add(suggestion);
+		return aux;
 	}
 
 	@ModelAttribute("suggestionsRechazadas")
 	public List<Suggestion> getSuggestionsRechazadas() {
 		List<Suggestion> suggestions = Service.getSuggestionService().getAllSuggestions();
-		List<Suggestion> aux= new ArrayList<Suggestion>();
+		List<Suggestion> aux = new ArrayList<Suggestion>();
 		for (Suggestion suggestion : suggestions)
 			if (suggestion.getEstado().equals(EstadoPropuesta.Rechazada))
 				aux.add(suggestion);
@@ -215,4 +220,13 @@ public class MainController {
 		return null;
 	}
 
+	@RequestMapping("/rechazarPropuesta/{id}")
+	public String rechazarPropuesta(HttpSession session, @PathVariable("id") Long id, Model model) {
+		Suggestion suggestion = Service.getSuggestionService().findSugById(id);
+		suggestion.rechazar();
+		Service.getSuggestionService().updateSuggestion(suggestion);
+		model.addAttribute("suggestions", getSuggestions());
+		model.addAttribute("suggestionsRechazadas", getSuggestionsRechazadas());
+		return "principalAdmin";
+	}
 }

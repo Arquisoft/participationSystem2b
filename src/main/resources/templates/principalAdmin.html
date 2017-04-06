@@ -39,6 +39,11 @@
 				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />
 				<td th:text="${sugerencia.positiveVotes}" />
 				<td th:text="${sugerencia.negativeVotes}" />
+				<td>
+					<form id="rechazar" th:action="@{/rechazarPropuesta/{id}(id=${sugerencia.id})}">
+						<button type="submit">Rechazar</button>
+					</form>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -55,7 +60,6 @@
 				<th>Fecha de creacion</th>
 				<th>Numero de votos positivos</th>
 				<th>Numero de votos negativos</th>
-				<th>Gestionar</th>
 			</tr>
 		</thead>
 		<tbody>
