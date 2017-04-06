@@ -1,9 +1,6 @@
 package es.uniovi.asw.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,12 +24,7 @@ public class MainController {
 
 	@Autowired
 	private KafkaProducer kafkaProducer;
-	//private List<Suggestion> sugerencias = crearListaSugerencias();
 
-//	private List<Suggestion> crearListaSugerencias() {
-//		return Service.getSuggestionService().getAllSuggestions();
-//	}
-	
 	@RequestMapping("/")
 	public String landing(Model model) {
 		model.addAttribute("message", new Message());
@@ -55,15 +47,12 @@ public class MainController {
 				resultado = "principalAdmin";
 			else
 				resultado = "principalUsuario";
-			
+
 			sesion.setAttribute("user", user);
-			// No hace falta meterlas en la sesion. Se usa el @ModelAttribute
-			// Si se meten en sesion habria que actualizarlas cada poco.
-			//sesion.setAttribute("sugerencias", this.sugerencias);
 		}
 		return resultado;
 	}
-	
+
 	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
 	public String registrar(HttpSession sesion, Model model, @RequestParam String archivo) {
 		System.out.println(archivo);
@@ -86,11 +75,11 @@ public class MainController {
 	@RequestMapping("/anadirPropuesta")
 	public String anadirPropuesta(HttpSession sesion, Model model, @RequestParam String titulo,
 			@RequestParam String categoria, @RequestParam String propuesta) {
-		if(!titulo.equals("") && !propuesta.equals("")){
-			
+		if (!titulo.equals("") && !propuesta.equals("")) {
 			Suggestion sug = new Suggestion((Participant) sesion.getAttribute("user"), titulo, propuesta, categoria);
 			Service.getSuggestionService().addSuggestion(sug);
-			return "suggestions";
+			getSuggestions();
+			return "principalUsuario";
 		}
 		return "addSuggestion";
 	}
@@ -99,7 +88,9 @@ public class MainController {
 	public String verPropuesta(HttpSession sesion, Model model, @PathVariable("id") Long id,
 			@ModelAttribute Message message) {
 		// es de prueba, habria que llamr al servicefindAllSuggestions
-		model.addAttribute("suggestion", Service.getSuggestionService().findSugById(id));
+		Suggestion suggestion = (Suggestion) Service.getSuggestionService().findSugById(id);
+		model.addAttribute("suggestion", suggestion);
+		sesion.setAttribute("suggestion", suggestion);
 		return "showSuggestion";
 	}
 
@@ -107,23 +98,45 @@ public class MainController {
 	public List<Suggestion> getSuggestions() {
 		return Service.getSuggestionService().getAllSuggestions();
 	}
+
 	@ModelAttribute("user")
 	public Participant getUser(HttpSession sesion) {
 		return (Participant) sesion.getAttribute("user");
 	}
-	
+
 	@RequestMapping("/cerrarSesion")
 	public String cerrarSesion(HttpSession session) {
 		session.setAttribute("user", null);
 		return "login";
 	}
-// Innecesario
-//	public List<Suggestion> getSugerencias() {
-//		return sugerencias;
-//	}
-//
-//	public void setSugerencias(List<Suggestion> sugerencias) {
-//		this.sugerencias = sugerencias;
-//	}
-	
+
+	@RequestMapping(value = "/votarPositivo")
+	public String votarPositivo(HttpSession session) {
+		System.out.println("Pulsado si1");
+		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+		System.out.println("Pulsado si2");
+		suggestion.increasePositiveVotes();
+		System.out.println("Pulsado si3");
+		Service.getSuggestionService().updateSuggestion(suggestion);
+		System.out.println("Pulsado si4");
+		int numvotos = suggestion.getPositiveVotes();
+		System.out.println(numvotos);
+		getSuggestions();
+		return "principalUsuario";
+	}
+
+	@RequestMapping(value = "/votarNegativo")
+	public String votarNegativo(HttpSession session) {
+		System.out.println("Pulsado no1");
+		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+		System.out.println("Pulsado no2");
+		suggestion.increaseNegativeVotes();
+		System.out.println("Pulsado no3");
+		Service.getSuggestionService().updateSuggestion(suggestion);
+		System.out.println("Pulsado no4");
+		int numvotos = suggestion.getNegativeVotes();
+		System.out.println(numvotos);
+		getSuggestions();
+		return "principalUsuario";
+	}
 }
