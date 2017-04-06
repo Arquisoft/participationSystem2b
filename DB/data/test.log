@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 /*C4*/SET SCHEMA PUBLIC
-=======
-/*C3*/SET SCHEMA PUBLIC
->>>>>>> a9dee8c2e41adce5dd684d3b4e800bdcf7cf4efc
 DISCONNECT

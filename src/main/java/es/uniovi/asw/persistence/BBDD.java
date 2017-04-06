@@ -154,6 +154,37 @@ public class BBDD {
 		}
 		return ciudadano;
 	}
+	
+	
+	public static Participant getParticipantByIDandPassword(String id, String password) {
+		Connection con = crearConexion();
+		String consulta = "SELECT c.* FROM PARTICIPANT c WHERE c.USUARIO = ? AND c.PASSWORD = ?";
+		Participant ciudadano = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(consulta);
+			ps.setString(1, id);
+			ps.setString(2, password);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				while (rs.next()) {
+				Participant ciudadanoAux = new Participant(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("email"),
+						rs.getString("direccion"), rs.getString("nacionalidad"), rs.getString("dni"),
+						rs.getDate("fecha_nacimiento"),rs.getString("usuario"));
+				if(ciudadano.getUsuario().equals(id) && ciudadano.getPassword().equals(password))
+					ciudadano=ciudadanoAux;
+				}
+			}
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ciudadano;
+	}
+	
 
 	/**
 	 * Metodo que guarda en la base de datos la contraseña asociada al usuario
