@@ -9,7 +9,8 @@
 	<div th:replace="/fragments/nav :: nav">
 
 	</div>
-	<h2 align="center" th:text="${suggestion.title}" style="margin-top:20px; margin-bottom:50px;"></h2>
+	
+	<h2 align="center" th:text="${session.suggestion.title}" style="margin-top:20px; margin-bottom:50px;"></h2>
 
 	<div class="container">
 		<div class="panel panel-primary">
@@ -20,23 +21,46 @@
     			
   			</div>
   			<div class="panel-footer">
-  				<form action="#" th:action="@{/votarPositivo}" method="post">
-			    	<button type="submit" class="btn btn-success">A favor</button>
-			    </form>
-			    <form action="#" th:action="@{/votarNegativo}" method="post">
-			    	<button type="submit" class="btn btn-danger">En contra</button>
-			    </form>
+  				<form id="positive" th:action="@{/votarPropSi}">
+    				<button type="submit"  class="btn btn-success">A favor</button>
+    				<span th:text="${session.suggestion.positiveVotes}"> </span>
+    			</form>
+    			<form id="negative" th:action="@{/votarPropNo}">
+			    	<button type="button"  class="btn btn-danger">En contra</button>
+			   		<span th:text="${session.suggestion.negativeVotes}"> </span>
+			   	</form>
 		  	</div>
 		</div>
 	</div>
 
-	<div class="container" style="max-width: 50%">
-  		<div class="form-group">
-  			<label for="comment" th:text="${user.usuario}"> comentar:</label>
- 			<textarea class="form-control" rows="5" id="comment"></textarea>
- 			<button type="button" class="btn btn-success">Añadir comentario</button>
+	<form th:action="@{/comentar}">
+		<div class="container" style="max-width: 30%">
+			<div class="form-group">
+				<label for="comment" th:text="${user.usuario}"> comentar:</label>
+				<span> Comentar:</span>
+				<textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+				<button type="submit"  class="btn btn-success">Añadir comentario</button>
+			</div>
+		</div>
+	</form>
+
+	<div class="container" th:each="comment : ${comments}" style="margin-top: 40px;max-width: 40%">
+		<div class="panel panel-default">
+			<div class="panel-heading text-white"  style="background: black;">
+				<h3 class="panel-title" th:text="${comment.participant.usuario}"></h3>
+			</div>
+			
+			<div class="panel-body" th:text="${comment.content}">
+				
+			</div>
+			
+			<div class="panel-footer">
+				<button type="button" class="btn btn-success btn-sm">A favor</button>
+				<button type="button" class="btn btn-danger btn-sm">En contra</button>
+			</div>
 		</div>
 	</div>
+	
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>

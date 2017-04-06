@@ -29,7 +29,10 @@ public class Comment implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="CREATION_DATE")
 	private Date date;
-	
+	@Column(name="POSITIVE_VOTES")
+	private int positiveVotes;
+	@Column(name="NEGATIVE_VOTES")
+	private int negativeVotes;
 	Comment(){}
 	public Comment(Participant participant,Suggestion suggestion,String content){
 		this.participant=participant;
@@ -42,6 +45,18 @@ public class Comment implements Serializable {
 
 	
 
+	public int getPositiveVotes() {
+		return positiveVotes;
+	}
+	public void increasePositiveVotes(int positiveVotes) {
+		this.positiveVotes++;
+	}
+	public int getNegativeVotes() {
+		return negativeVotes;
+	}
+	public void increaseNegativeVotes(int negativeVotes) {
+		this.negativeVotes++;
+	}
 	public Suggestion getSuggestion() {
 		return suggestion;
 	}

@@ -36,7 +36,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 		return dao.getSuggestionByParticipant(participant);
 	}
 	@Override
-	public Object findSugById(Long id) {
+	public Suggestion findSugById(Long id) {
 		return dao.findSugById(id);
 	}
 
