@@ -43,12 +43,12 @@
 				<td>
 					<form th:action="@{/modificarMinimoVotos/{id}(id=${sugerencia.id})}" method="POST">
 					    <input id="minVotos" name="minVotos" type="number" th:value="${sugerencia.minVotos}"/>
-					    <input type="submit" value="Modificar" />
+					    	<button type="submit" class="btn btn-success btn-sm">Modificar</button>
 					</form>
 				</td>
 				<td>
 					<form id="rechazar" th:action="@{/rechazarPropuesta/{id}(id=${sugerencia.id})}">
-						<button type="submit">Rechazar</button>
+						<button class="btn btn-danger btn-sm" type="submit">Rechazar</button>
 					</form>
 				</td>
 			</tr>
