@@ -19,4 +19,11 @@ public class Association {
 			parti._getComments().add(comment);
 		}
 	}
+	
+	public static class AddCategory{
+		public static void link(Suggestion sugg, Category category){
+			sugg._setCategory(category);
+			category._getSuggestions().add(sugg);
+		}
+	}
 }

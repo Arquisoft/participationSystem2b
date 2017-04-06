@@ -12,93 +12,95 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
-@Table(name="COMMENT")
+@Table(name = "COMMENT")
 public class Comment implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@ManyToOne
 	private Participant participant;
 	@ManyToOne
 	private Suggestion suggestion;
 	private String content;
 	@Temporal(TemporalType.DATE)
-	@Column(name="CREATION_DATE")
+	@Column(name = "CREATION_DATE")
 	private Date date;
-	@Column(name="POSITIVE_VOTES")
+	@Column(name = "POSITIVE_VOTES")
 	private int positiveVotes;
-	@Column(name="NEGATIVE_VOTES")
+	@Column(name = "NEGATIVE_VOTES")
 	private int negativeVotes;
-	Comment(){}
-	public Comment(Participant participant,Suggestion suggestion,String content){
-		this.participant=participant;
-		this.suggestion=suggestion;
-		this.content=content;
-		this.date = new Date();
-		Association.AddComment.link(suggestion, this, participant);
-		
+
+	Comment() {
 	}
 
-	
+	public Comment(Participant participant, Suggestion suggestion, String content) {
+		this.participant = participant;
+		this.suggestion = suggestion;
+		this.content = content;
+		this.date = new Date();
+		Association.AddComment.link(suggestion, this, participant);
+
+	}
 
 	public int getPositiveVotes() {
 		return positiveVotes;
 	}
-	public void increasePositiveVotes(int positiveVotes) {
+
+	public void increasePositiveVotes() {
 		this.positiveVotes++;
 	}
+
 	public int getNegativeVotes() {
 		return negativeVotes;
 	}
-	public void increaseNegativeVotes(int negativeVotes) {
+
+	public void increaseNegativeVotes() {
 		this.negativeVotes++;
 	}
+
 	public Suggestion getSuggestion() {
 		return suggestion;
 	}
-
-
 
 	void _setSuggestion(Suggestion suggestion) {
 		this.suggestion = suggestion;
 	}
 
-
-
 	public Participant getParticipant() {
 		return participant;
 	}
-
 
 	void _setParticipant(Participant participant) {
 		this.participant = participant;
 	}
 
-
 	public String getContent() {
 		return content;
 	}
-
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-
 	public Date getDate() {
 		return date;
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,6 +109,7 @@ public class Comment implements Serializable {
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -128,12 +131,10 @@ public class Comment implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", date=" + date + "]";
 	}
-	
-	
-	
-	
+
 }

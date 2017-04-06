@@ -21,10 +21,10 @@
 
   <div class="form-group">
     <label for="exampleSelect1">Categoría: </label>
-    <select class="form-control" id="exampleSelect1" name="categoria">
-      <option>Categoria 1</option>
-      <option>Categoria 2</option>
-      <option>Categoria 3</option>
+    <select class="form-control" id="exampleSelect1"  name="categoria">
+      <div th:each="cate : ${categories}">
+      <option th:value="${cate.id}" th:text="${cate.name}"></option>
+      </div>
     </select>
   </div>
  

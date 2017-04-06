@@ -10,6 +10,7 @@ import es.uniovi.asw.service.SuggestionService;
 public class SuggestionServiceImpl implements SuggestionService {
 
 	private SuggestionDaoImpl dao = new SuggestionDaoImpl();
+
 	@Override
 	public void addSuggestion(Suggestion suggestion) {
 		dao.addSuggestion(suggestion);
@@ -25,7 +26,6 @@ public class SuggestionServiceImpl implements SuggestionService {
 		dao.updateSuggestion(suggestion);
 	}
 
-
 	@Override
 	public List<Suggestion> getAllSuggestions() {
 		return dao.getAllSuggestions();
@@ -35,6 +35,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 	public List<Suggestion> getSuggestionByParticipant(Participant participant) {
 		return dao.getSuggestionByParticipant(participant);
 	}
+
 	@Override
 	public Suggestion findSugById(Long id) {
 		return dao.findSugById(id);
