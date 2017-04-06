@@ -12,26 +12,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="CATEGORY")
-public class Category implements Serializable{
+@Table(name = "CATEGORY")
+public class Category implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
-	
-	@OneToMany(mappedBy="category")
+
+	@OneToMany(mappedBy = "category")
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
-	
+
 	Category() {
 	}
-	
-	public Category(String name){
-		this.name=name;
-		
+
+	public Category(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
@@ -45,12 +46,11 @@ public class Category implements Serializable{
 	public long getId() {
 		return id;
 	}
-	
-	
 
 	Set<Suggestion> _getSuggestions() {
 		return suggestions;
 	}
+
 	public Set<Suggestion> getSuggestions() {
 		return new HashSet<Suggestion>(suggestions);
 	}
@@ -84,6 +84,5 @@ public class Category implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 }

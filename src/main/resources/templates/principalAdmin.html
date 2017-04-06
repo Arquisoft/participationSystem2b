@@ -17,7 +17,7 @@
 	
 	</div>
 	
-	<h2 align="center" style="margin-top:20px; margin-bottom:50px;">Propuestas</h2>
+	<h2 align="center" style="margin-top:20px; margin-bottom:50px;">Propuestas en tramite</h2>
 <div class="container">	
 	<table class="table">
 		<thead class="thead-inverse">
@@ -33,8 +33,35 @@
 		</thead>
 		<tbody>
 			<tr th:each="sugerencia : ${suggestions}">
-				<td><a th:text="${sugerencia.title}" th:href="@{/verPropuesta/{id}(id=${sugerencia.id})}"/></td>
-				<td th:text="${sugerencia.category}" />
+				<td th:text="${sugerencia.title}" />
+				<td th:text="${sugerencia.category.name}" />
+				<td th:text="${sugerencia.participant.nombre}" />
+				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />
+				<td th:text="${sugerencia.positiveVotes}" />
+				<td th:text="${sugerencia.negativeVotes}" />
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<h2 align="center" style="margin-top:20px; margin-bottom:50px;">Propuestas rechazadas</h2>
+<div class="container">	
+	<table class="table">
+		<thead class="thead-inverse">
+			<tr>
+				<th>Titulo</th>
+				<th>Categoria</th>
+				<th>Autor</th>
+				<th>Fecha de creacion</th>
+				<th>Numero de votos positivos</th>
+				<th>Numero de votos negativos</th>
+				<th>Gestionar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="sugerencia : ${suggestionsRechazadas}">
+				<td th:text="${sugerencia.title}" />
+				<td th:text="${sugerencia.category.name}" />
 				<td th:text="${sugerencia.participant.nombre}" />
 				<td th:text="${#dates.format(sugerencia.creationDate, 'dd-MM-yyyy')}" />
 				<td th:text="${sugerencia.positiveVotes}" />

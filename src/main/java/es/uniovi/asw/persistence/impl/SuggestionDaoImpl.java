@@ -11,14 +11,14 @@ import es.uniovi.asw.persistence.SuggestionDao;
 import es.uniovi.asw.persistence.finder.SuggestionFinder;
 import es.uniovi.asw.persistence.util.Jpa;
 
-public class SuggestionDaoImpl implements SuggestionDao{
+public class SuggestionDaoImpl implements SuggestionDao {
 
 	@Override
 	public void addSuggestion(Suggestion suggestion) {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-			Jpa.getManager().persist(suggestion);
+		Jpa.getManager().persist(suggestion);
 		trx.commit();
 	}
 
@@ -27,8 +27,8 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-		Suggestion s =Jpa.getManager().find(Suggestion.class, suggestion.getId());
-		if(s.getComments().size()==0){
+		Suggestion s = Jpa.getManager().find(Suggestion.class, suggestion.getId());
+		if (s.getComments().size() == 0) {
 			Jpa.getManager().remove(s);
 		}
 		trx.commit();
@@ -39,12 +39,11 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-		
-		if(Jpa.getManager().find(Suggestion.class, suggestion.getId())!=null)
+
+		if (Jpa.getManager().find(Suggestion.class, suggestion.getId()) != null)
 			Jpa.getManager().merge(suggestion);
 		trx.commit();
-		
-		
+
 	}
 
 	@Override
@@ -70,6 +69,5 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		trx.begin();
 		return SuggestionFinder.findById(id);
 	}
-	
 
 }

@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,34 +35,35 @@ public class Suggestion {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATION_DATE")
 	private Date creationDate;
-	
+
 	@ManyToOne
 	private Category category;
 	@Column(name = "positive_votes")
 	private int positiveVotes;
 	@Column(name = "negative_votes")
 	private int negativeVotes;
-	
+	@Enumerated(EnumType.STRING)
+	private EstadoPropuesta status;
 
-
-
-	Suggestion(){}
-	public Suggestion(Participant participant,String titulo,String suggestion,Category category) {
-		this.title=titulo;
-		this.participant=participant;
-		this.suggestion=suggestion;
-		this.category=category;
-		this.creationDate= new Date();
-		Association.AddSuggestion.link(this,participant);
-		Association.AddCategory.link(this,category);
-
+	Suggestion() {
 	}
+
+	public Suggestion(Participant participant, String titulo, String suggestion, Category category) {
+		this.title = titulo;
+		this.participant = participant;
+		this.suggestion = suggestion;
+		this.category = category;
+		this.creationDate = new Date();
+		Association.AddSuggestion.link(this, participant);
+		Association.AddCategory.link(this, category);
+		this.status = EstadoPropuesta.Entramite;
+	}
+
 	public String getSuggestionPreview() {
 		String suggestPreview = "";
 		if (suggestion.length() > 200) {
 			suggestPreview = suggestion.substring(0, 200);
 			suggestPreview += " ...";
-
 		} else {
 			suggestPreview = suggestion;
 		}
@@ -122,13 +125,11 @@ public class Suggestion {
 	void _setParticipant(Participant participant) {
 		this.participant = participant;
 	}
-	
-
-
 
 	public Category getCategory() {
 		return category;
 	}
+
 	void _setCategory(Category category) {
 		this.category = category;
 	}
@@ -141,6 +142,13 @@ public class Suggestion {
 		this.creationDate = creationDate;
 	}
 
+	public EstadoPropuesta getEstado() {
+		return status;
+	}
+
+	public void setEstado(EstadoPropuesta estado) {
+		this.status = estado;
+	}
 
 	@Override
 	public int hashCode() {
@@ -185,5 +193,5 @@ public class Suggestion {
 				+ creationDate + ", category=" + category + ", positiveVotes=" + positiveVotes + ", negativeVotes="
 				+ negativeVotes + "]";
 	}
-	
+
 }

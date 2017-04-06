@@ -9,20 +9,20 @@ import es.uniovi.asw.persistence.util.Jpa;
 public class SuggestionFinder {
 
 	public static List<Suggestion> findByParticipantId(Participant part) {
-		return Jpa.getManager().createNamedQuery("Suggestion.findByPId",Suggestion.class).setParameter(1, part).getResultList();
-		
+		return Jpa.getManager().createNamedQuery("Suggestion.findByPId", Suggestion.class).setParameter(1, part)
+				.getResultList();
 	}
 
 	public static List<Suggestion> findAll() {
-		return Jpa.getManager().createNamedQuery("Suggestion.findAll",Suggestion.class).getResultList();
+		return Jpa.getManager().createNamedQuery("Suggestion.findAll", Suggestion.class).getResultList();
 	}
 
 	public static Suggestion findById(Long id) {
-		List<Suggestion> sug = Jpa.getManager().createNamedQuery("Suggestion.findById",Suggestion.class).setParameter(1, id).getResultList();
-		if(sug.isEmpty())return null;
+		List<Suggestion> sug = Jpa.getManager().createNamedQuery("Suggestion.findById", Suggestion.class)
+				.setParameter(1, id).getResultList();
+		if (sug.isEmpty())
+			return null;
 		return sug.get(0);
 	}
-	
-	
 
 }

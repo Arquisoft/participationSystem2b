@@ -1,5 +1,6 @@
 package es.uniovi.asw.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import es.uniovi.asw.controller.producers.KafkaProducer;
 import es.uniovi.asw.hello.Message;
 import es.uniovi.asw.model.Category;
 import es.uniovi.asw.model.Comment;
+import es.uniovi.asw.model.EstadoPropuesta;
 import es.uniovi.asw.model.Participant;
 import es.uniovi.asw.model.Suggestion;
 import es.uniovi.asw.service.Service;
@@ -94,7 +96,7 @@ public class MainController {
 			System.out.println(categoria);
 			Suggestion sug = new Suggestion((Participant) sesion.getAttribute("user"), titulo, propuesta, category);
 			Service.getSuggestionService().addSuggestion(sug);
-			model.addAttribute("suggestions",Service.getSuggestionService().getAllSuggestions());
+			model.addAttribute("suggestions", Service.getSuggestionService().getAllSuggestions());
 			return "principalUsuario";
 		}
 		return "addSuggestion";
@@ -103,8 +105,8 @@ public class MainController {
 	@RequestMapping("/verPropuesta/{id}")
 	public String verPropuesta(HttpSession sesion, Model model, @PathVariable("id") Long id) {
 		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(id));
-		//Cateogory cat = Service.getCategoryService().findByName();
-		
+		// Cateogory cat = Service.getCategoryService().findByName();
+
 		Suggestion suggestion = (Suggestion) Service.getSuggestionService().findSugById(id);
 		model.addAttribute("suggestion", suggestion);
 		sesion.setAttribute("suggestion", suggestion);
@@ -151,8 +153,6 @@ public class MainController {
 		return "showSuggestion";
 	}
 
-	
-
 	@RequestMapping("/cerrarSesion")
 	public String cerrarSesion(HttpSession session) {
 		session.setAttribute("user", null);
@@ -180,14 +180,25 @@ public class MainController {
 		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 		return "showSuggestion";
 	}
-	
+
 	@ModelAttribute("categories")
 	public List<Category> getCategories() {
 		return Service.getCategoryService().findAllCategories();
 	}
+
 	@ModelAttribute("suggestions")
 	public List<Suggestion> getSuggestions() {
 		return Service.getSuggestionService().getAllSuggestions();
+	}
+
+	@ModelAttribute("suggestionsRechazadas")
+	public List<Suggestion> getSuggestionsRechazadas() {
+		List<Suggestion> suggestions = Service.getSuggestionService().getAllSuggestions();
+		List<Suggestion> aux= new ArrayList<Suggestion>();
+		for (Suggestion suggestion : suggestions)
+			if (suggestion.getEstado().equals(EstadoPropuesta.Rechazada))
+				aux.add(suggestion);
+		return aux;
 	}
 
 	@ModelAttribute("user")
