@@ -19,5 +19,7 @@ public interface ParticipantDao {
 	public void init();
 	public Participant findLogableUser(String usuario, String password);
 
+	Participant findParticipantByIdAndPassword(String id, String password);
+
 
 }

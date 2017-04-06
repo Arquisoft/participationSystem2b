@@ -47,6 +47,15 @@ public class ParticipantDaoImpl implements ParticipantDao {
 		Participant c =ParticipantFinder.findByDni(dni);
 		return c;
 	}
+	
+	@Override
+	public Participant findParticipantByIdAndPassword(String id, String password) {
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		Participant c =ParticipantFinder.findLogableUser(id, password);
+		return c;
+	}
 
 
 	@Override

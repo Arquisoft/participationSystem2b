@@ -21,6 +21,8 @@ public class ParticipantServiceImpl implements ParticipantService {
 		
 		return dao.findParticipant(dni);
 	}
+	
+	
 
 	@Override
 	public void updateParticipant(Participant participant) {
@@ -49,5 +51,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 	public Participant findLogableUser(String usuario, String password) {
 		return dao.findLogableUser(usuario, password);
 	}
+
+
 
 }

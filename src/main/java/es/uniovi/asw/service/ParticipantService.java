@@ -8,7 +8,7 @@ public interface ParticipantService {
 	public void deleteAllParticipants();
 
 	public Participant findParticipant(String dni);
-
+	
 	public void updateParticipant(Participant participant);
 	public void deleteParticipantByDni(String dni);
 
