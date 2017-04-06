@@ -70,5 +70,6 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		trx.begin();
 		return SuggestionFinder.findById(id);
 	}
+	
 
 }

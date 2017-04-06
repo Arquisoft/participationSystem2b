@@ -42,6 +42,8 @@ public class Participant implements Serializable {
 	@OneToMany(mappedBy = "participant")
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 	
+	private boolean admin;
+
 	Participant() {
 	}
 
@@ -54,7 +56,18 @@ public class Participant implements Serializable {
 		this.nacionalidad = nacionalidad;
 		this.dni = dni;
 		this.fecha_nacimiento = fecha_nacimiento;
-		this.usuario = user;
+		this.usuario=user;
+		this.admin=false;
+	}
+	
+	
+	
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getUsuario() {

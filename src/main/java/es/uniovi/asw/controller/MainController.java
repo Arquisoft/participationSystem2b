@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uniovi.asw.controller.producers.KafkaProducer;
 import es.uniovi.asw.hello.Message;
+import es.uniovi.asw.model.Category;
 import es.uniovi.asw.model.Comment;
 import es.uniovi.asw.model.Participant;
 import es.uniovi.asw.model.Suggestion;
@@ -87,11 +88,13 @@ public class MainController {
 
 	@RequestMapping("/anadirPropuesta")
 	public String anadirPropuesta(HttpSession sesion, Model model, @RequestParam String titulo,
-			@RequestParam String categoria, @RequestParam String propuesta) {
+			@RequestParam Long categoria, @RequestParam String propuesta) {
 		if (!titulo.equals("") && !propuesta.equals("")) {
-			Suggestion sug = new Suggestion((Participant) sesion.getAttribute("user"), titulo, propuesta, categoria);
+			Category category = Service.getCategoryService().findById(categoria);
+			System.out.println(categoria);
+			Suggestion sug = new Suggestion((Participant) sesion.getAttribute("user"), titulo, propuesta, category);
 			Service.getSuggestionService().addSuggestion(sug);
-			getSuggestions();
+			model.addAttribute("suggestions",Service.getSuggestionService().getAllSuggestions());
 			return "principalUsuario";
 		}
 		return "addSuggestion";
@@ -100,7 +103,8 @@ public class MainController {
 	@RequestMapping("/verPropuesta/{id}")
 	public String verPropuesta(HttpSession sesion, Model model, @PathVariable("id") Long id) {
 		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(id));
-
+		//Cateogory cat = Service.getCategoryService().findByName();
+		
 		Suggestion suggestion = (Suggestion) Service.getSuggestionService().findSugById(id);
 		model.addAttribute("suggestion", suggestion);
 		sesion.setAttribute("suggestion", suggestion);
@@ -147,24 +151,7 @@ public class MainController {
 		return "showSuggestion";
 	}
 
-	@ModelAttribute("suggestions")
-	public List<Suggestion> getSuggestions() {
-		return Service.getSuggestionService().getAllSuggestions();
-	}
-
-	@ModelAttribute("user")
-	public Participant getUser(HttpSession sesion) {
-		return (Participant) sesion.getAttribute("user");
-	}
-
-	@ModelAttribute("comments")
-	public List<Comment> getComments(HttpSession sesion) {
-		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
-		if (s != null) {
-			return Service.getCommentService().findAllCommentsBySuggestionId(s.getId());
-		}
-		return null;
-	}
+	
 
 	@RequestMapping("/cerrarSesion")
 	public String cerrarSesion(HttpSession session) {
@@ -192,6 +179,29 @@ public class MainController {
 		Suggestion s = (Suggestion) session.getAttribute("suggestion");
 		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 		return "showSuggestion";
+	}
+	
+	@ModelAttribute("categories")
+	public List<Category> getCategories() {
+		return Service.getCategoryService().findAllCategories();
+	}
+	@ModelAttribute("suggestions")
+	public List<Suggestion> getSuggestions() {
+		return Service.getSuggestionService().getAllSuggestions();
+	}
+
+	@ModelAttribute("user")
+	public Participant getUser(HttpSession sesion) {
+		return (Participant) sesion.getAttribute("user");
+	}
+
+	@ModelAttribute("comments")
+	public List<Comment> getComments(HttpSession sesion) {
+		Suggestion s = (Suggestion) sesion.getAttribute("suggestion");
+		if (s != null) {
+			return Service.getCommentService().findAllCommentsBySuggestionId(s.getId());
+		}
+		return null;
 	}
 
 }
