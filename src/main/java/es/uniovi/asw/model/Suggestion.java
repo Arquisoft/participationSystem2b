@@ -16,73 +16,78 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="SUGGESTION")
+@Table(name = "SUGGESTION")
 public class Suggestion {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@ManyToOne
 	private Participant participant;
-	
+
 	private String title;
 	private String suggestion;
-	@OneToMany(mappedBy="suggestion")
+	@OneToMany(mappedBy = "suggestion")
 	private Set<Comment> comments = new HashSet<Comment>();
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="CREATION_DATE")
+	@Column(name = "CREATION_DATE")
 	private Date creationDate;
 	private String category;
-	@Column(name="positive_votes")
+	@Column(name = "positive_votes")
 	private int positiveVotes;
-	@Column(name="negative_votes")
+	@Column(name = "negative_votes")
 	private int negativeVotes;
-
-	Suggestion(){}
-	public Suggestion(Participant participant,String titulo,String suggestion,String category) {
-		this.title=titulo;
-		this.participant=participant;
-		this.suggestion=suggestion;
-		this.category=category;
-		this.creationDate= new Date();
-		Association.AddSuggestion.link(this,participant);
+	
+	Suggestion() {
 	}
-	
-	
 
-	
-	public String getSuggestionPreview(){
-		String suggestPreview="";
-		if(suggestion.length()>200){
-			suggestPreview=suggestion.substring(0, 200);
-			suggestPreview+=" ...";
+	public Suggestion(Participant participant, String titulo, String suggestion, String category) {
+		this.title = titulo;
+		this.participant = participant;
+		this.suggestion = suggestion;
+		this.category = category;
+		this.creationDate = new Date();
+		Association.AddSuggestion.link(this, participant);
+	}
 
-		}else{
-			suggestPreview= suggestion;
+	public String getSuggestionPreview() {
+		String suggestPreview = "";
+		if (suggestion.length() > 200) {
+			suggestPreview = suggestion.substring(0, 200);
+			suggestPreview += " ...";
+
+		} else {
+			suggestPreview = suggestion;
 		}
 		return suggestPreview;
 	}
+
 	Set<Comment> _getComments() {
 		return this.comments;
 	}
+
 	public Set<Comment> getComments() {
 		return new HashSet<Comment>(this.comments);
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
-	
-	public void addComment(Comment comment){
+
+	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
+
 	public String getSuggestion() {
 		return suggestion;
 	}
-	
-	public void increasePositiveVotes(){
+
+	public void increasePositiveVotes() {
 		this.positiveVotes++;
 	}
 
-	public void increaseNegativeVotes(){
+	public void increaseNegativeVotes() {
 		this.negativeVotes++;
 	}
 
@@ -98,13 +103,14 @@ public class Suggestion {
 		this.suggestion = suggestion;
 	}
 
-
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public Participant getParticipant() {
 		return participant;
 	}
@@ -112,7 +118,6 @@ public class Suggestion {
 	void _setParticipant(Participant participant) {
 		this.participant = participant;
 	}
-
 
 	public Date getCreationDate() {
 		return creationDate;
@@ -129,6 +134,7 @@ public class Suggestion {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -138,6 +144,7 @@ public class Suggestion {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -164,14 +171,12 @@ public class Suggestion {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Suggestion [id=" + id + ", participant=" + participant + ", title=" + title + ", creationDate="
 				+ creationDate + ", category=" + category + ", positiveVotes=" + positiveVotes + ", negativeVotes="
 				+ negativeVotes + "]";
 	}
-	
-	
-	
 	
 }

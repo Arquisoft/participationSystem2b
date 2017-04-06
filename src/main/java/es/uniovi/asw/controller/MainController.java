@@ -167,33 +167,26 @@ public class MainController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/votarPositivo")
-	public String votarPositivo(HttpSession session) {
-		System.out.println("Pulsado si1");
-		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
-		System.out.println("Pulsado si2");
-		suggestion.increasePositiveVotes();
-		System.out.println("Pulsado si3");
-		Service.getSuggestionService().updateSuggestion(suggestion);
-		System.out.println("Pulsado si4");
-		int numvotos = suggestion.getPositiveVotes();
-		System.out.println(numvotos);
-		getSuggestions();
-		return "principalUsuario";
+	@RequestMapping("/votaSiCom/{id}")
+	public String votaSiCom(HttpSession session, @PathVariable("id") Long id, Model model) {
+		Comment comment = Service.getCommentService().findCommentById(id);
+		comment.increasePositiveVotes();
+		Service.getCommentService().updateComment(comment);
+		
+		Suggestion s = (Suggestion) session.getAttribute("suggestion");
+		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s .getId()));
+		return "showSuggestion";
 	}
-
-	@RequestMapping(value = "/votarNegativo")
-	public String votarNegativo(HttpSession session) {
-		System.out.println("Pulsado no1");
-		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
-		System.out.println("Pulsado no2");
-		suggestion.increaseNegativeVotes();
-		System.out.println("Pulsado no3");
-		Service.getSuggestionService().updateSuggestion(suggestion);
-		System.out.println("Pulsado no4");
-		int numvotos = suggestion.getNegativeVotes();
-		System.out.println(numvotos);
-		getSuggestions();
-		return "principalUsuario";
+	
+	@RequestMapping("/votaNoCom/{id}")
+	public String votaNoCom(HttpSession session, @PathVariable("id") Long id, Model model) {
+		Comment comment = Service.getCommentService().findCommentById(id);
+		comment.increaseNegativeVotes();
+		Service.getCommentService().updateComment(comment);
+		
+		Suggestion s = (Suggestion) session.getAttribute("suggestion");
+		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s .getId()));
+		return "showSuggestion";
 	}
+	
 }

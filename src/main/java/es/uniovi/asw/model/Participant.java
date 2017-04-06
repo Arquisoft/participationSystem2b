@@ -16,14 +16,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="PARTICIPANT")
-public class Participant implements Serializable{
+@Table(name = "PARTICIPANT")
+public class Participant implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nombre;
 	private String apellidos;
 	private String email;
@@ -34,13 +36,15 @@ public class Participant implements Serializable{
 	private String usuario;
 	@Temporal(TemporalType.DATE)
 	private Date fecha_nacimiento;
-	
-	@OneToMany(mappedBy="participant")
-	private Set<Comment> comments = new HashSet<Comment>();
-	@OneToMany(mappedBy="participant")
-	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 
-	Participant(){}
+	@OneToMany(mappedBy = "participant")
+	private Set<Comment> comments = new HashSet<Comment>();
+	@OneToMany(mappedBy = "participant")
+	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
+	
+	Participant() {
+	}
+
 	public Participant(String nombre, String apellidos, String email, String direccion, String nacionalidad, String dni,
 			Date fecha_nacimiento, String user) {
 		this.nombre = nombre;
@@ -50,39 +54,40 @@ public class Participant implements Serializable{
 		this.nacionalidad = nacionalidad;
 		this.dni = dni;
 		this.fecha_nacimiento = fecha_nacimiento;
-		this.usuario=user;
+		this.usuario = user;
 	}
-	
-	
-	
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
+
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+
 	Set<Comment> _getComments() {
 		return this.comments;
 	}
+
 	Set<Suggestion> _getSuggestions() {
 		return this.suggestions;
 	}
-	
+
 	public Set<Comment> getComments() {
 		return new HashSet<Comment>(this.comments);
 	}
+
 	public Set<Suggestion> getSuggestions() {
 		return new HashSet<Suggestion>(this.suggestions);
 	}
-	public void addComment(Comment comment){
+
+	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
-	public void addSuggestion(Suggestion suggestion){
+
+	public void addSuggestion(Suggestion suggestion) {
 		this.suggestions.add(suggestion);
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -147,7 +152,8 @@ public class Participant implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
 
@@ -157,10 +163,6 @@ public class Participant implements Serializable{
 				+ ", direccion=" + direccion + ", nacionalidad=" + nacionalidad + ", dni=" + dni + ", password="
 				+ password + ", usuario=" + usuario + ", fecha_nacimiento=" + fecha_nacimiento + "]";
 	}
-	
-	
-
-
 
 	@Override
 	public int hashCode() {
@@ -169,6 +171,7 @@ public class Participant implements Serializable{
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -185,6 +188,7 @@ public class Participant implements Serializable{
 			return false;
 		return true;
 	}
+
 	/**
 	 * Metodo para crear la password de forma aleatoria.
 	 */
@@ -194,29 +198,28 @@ public class Participant implements Serializable{
 		char[] mayusculas = "abcdefghijklmnopqrstuvwxyz".toUpperCase().toCharArray();
 		char[] numeros = "0123456789".toCharArray();
 		char[] simbolos = "'¿?*+-$%".toCharArray();
-		
+
 		// Tiene una letra mayuscula
 		Random random = new Random();
 		int pos = random.nextInt(mayusculas.length);
 		password += mayusculas[pos];
-		
+
 		// Tiene 5 letras minusculas
 		for (int i = 0; i < 5; i++) {
 			random = new Random();
 			pos = random.nextInt(minusculas.length);
 			password += minusculas[pos];
 		}
-		
+
 		// Tiene un numero
 		random = new Random();
 		pos = random.nextInt(numeros.length);
 		password += numeros[pos];
-		
-		// Tiene un simbolo especial 
+
+		// Tiene un simbolo especial
 		random = new Random();
 		pos = random.nextInt(simbolos.length);
 		password += simbolos[pos];
 	}
-	
-	
+
 }

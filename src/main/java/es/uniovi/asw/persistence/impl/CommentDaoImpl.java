@@ -17,7 +17,7 @@ public class CommentDaoImpl implements CommentDao {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-			Jpa.getManager().persist(comment);
+		Jpa.getManager().persist(comment);
 		trx.commit();
 	}
 
@@ -27,9 +27,9 @@ public class CommentDaoImpl implements CommentDao {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-		Comment c =Jpa.getManager().find(Comment.class, comment.getId());
+		Comment c = Jpa.getManager().find(Comment.class, comment.getId());
 		Jpa.getManager().remove(c);
-		
+
 		trx.commit();
 	}
 
@@ -44,7 +44,7 @@ public class CommentDaoImpl implements CommentDao {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-		List<Comment> comments= CommentFinder.findCommentsBySugId(suggId);
+		List<Comment> comments = CommentFinder.findCommentsBySugId(suggId);
 		trx.commit();
 		return comments;
 	}
@@ -53,6 +53,25 @@ public class CommentDaoImpl implements CommentDao {
 	public List<Comment> findAllCommentsByParticipantId(long participantId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Comment findCommentById(Long id) {
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		Comment comment = CommentFinder.findCommentById(id);
+		trx.commit();
+		return comment;
+	}
+
+	@Override
+	public void updateComment(Comment comment) {
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
+		Jpa.getManager().merge(comment);
+		trx.commit();
 	}
 
 }
