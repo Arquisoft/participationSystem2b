@@ -39,5 +39,6 @@ public class SuggestionServiceImpl implements SuggestionService {
 	public Suggestion findSugById(Long id) {
 		return dao.findSugById(id);
 	}
+	
 
 }

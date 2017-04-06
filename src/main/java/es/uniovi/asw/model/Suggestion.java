@@ -31,20 +31,23 @@ public class Suggestion {
 	@Temporal(TemporalType.DATE)
 	@Column(name="CREATION_DATE")
 	private Date creationDate;
-	private String category;
+	
+	@ManyToOne
+	private Category category;
 	@Column(name="positive_votes")
 	private int positiveVotes;
 	@Column(name="negative_votes")
 	private int negativeVotes;
 
 	Suggestion(){}
-	public Suggestion(Participant participant,String titulo,String suggestion,String category) {
+	public Suggestion(Participant participant,String titulo,String suggestion,Category category) {
 		this.title=titulo;
 		this.participant=participant;
 		this.suggestion=suggestion;
 		this.category=category;
 		this.creationDate= new Date();
 		Association.AddSuggestion.link(this,participant);
+		Association.AddCategory.link(this,category);
 	}
 	
 	
@@ -112,8 +115,15 @@ public class Suggestion {
 	void _setParticipant(Participant participant) {
 		this.participant = participant;
 	}
+	
 
 
+	public Category getCategory() {
+		return category;
+	}
+	void _setCategory(Category category) {
+		this.category = category;
+	}
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -122,13 +132,6 @@ public class Suggestion {
 		this.creationDate = creationDate;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
