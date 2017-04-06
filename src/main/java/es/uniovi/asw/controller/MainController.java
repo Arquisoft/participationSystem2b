@@ -74,6 +74,11 @@ public class MainController {
 		return "principalUsuario";
 	}
 
+	@RequestMapping("/mostrarPropuestasAdmin")
+	public String mostrarPropuestasAdmin(HttpSession sesion, Model model) {
+		return "principalAdmin";
+	}
+
 	@RequestMapping("/crearPropuesta")
 	public String crearPropuesta(HttpSession sesion, Model model) {
 		System.out.println(sesion.getAttribute("user"));
@@ -112,7 +117,7 @@ public class MainController {
 			model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 			comment = "";
 		}
-		
+
 		System.out.println(sesion.getAttribute("suggestion"));
 		System.out.println(comment);
 		return "showSuggestion";
@@ -172,21 +177,21 @@ public class MainController {
 		Comment comment = Service.getCommentService().findCommentById(id);
 		comment.increasePositiveVotes();
 		Service.getCommentService().updateComment(comment);
-		
+
 		Suggestion s = (Suggestion) session.getAttribute("suggestion");
-		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s .getId()));
+		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 		return "showSuggestion";
 	}
-	
+
 	@RequestMapping("/votaNoCom/{id}")
 	public String votaNoCom(HttpSession session, @PathVariable("id") Long id, Model model) {
 		Comment comment = Service.getCommentService().findCommentById(id);
 		comment.increaseNegativeVotes();
 		Service.getCommentService().updateComment(comment);
-		
+
 		Suggestion s = (Suggestion) session.getAttribute("suggestion");
-		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s .getId()));
+		model.addAttribute("comments", Service.getCommentService().findAllCommentsBySuggestionId(s.getId()));
 		return "showSuggestion";
 	}
-	
+
 }

@@ -53,7 +53,7 @@ SET SCHEMA PUBLIC
 INSERT INTO PARTICIPANT VALUES(2,'Daniel','Orviz','orviz@prueba','1995-03-14','dir','Espa\u00f1a','23453212Y','password','DanielOrviz')
 INSERT INTO PARTICIPANT VALUES(3,'Admin','1','admin@prueba','1995-03-14','dir','Espa\u00f1a','65431789T','admin','Admin1')
 INSERT INTO PARTICIPANT VALUES(4,'Hugo','Perez','perez@prueba','1995-03-14','dir','Espa\u00f1a','11111111A','password','Hugo')
-INSERT INTO COMMENT VALUES(1,2,2,'2017-04-05','comentario de prueba',7,0)
+INSERT INTO COMMENT VALUES(1,2,2,'2017-04-05','comentario de prueba',7,2)
 INSERT INTO COMMENT VALUES(2,2,2,'2017-04-05','dfasd',2,0)
 INSERT INTO COMMENT VALUES(3,2,2,'2017-04-05','nuevo',1,0)
 INSERT INTO COMMENT VALUES(4,2,2,'2017-04-05','nuevo',1,0)
