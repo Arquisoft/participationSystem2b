@@ -1,24 +1,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Inicio Sesion</title>
-<link th:href="@{/webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css}" rel="stylesheet" media="screen"/>
-<link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet" media="screen"/> 
-<script type="text/javascript">
-function showFileName() {
-   var fil = document.getElementById("myFile");
-   alert(fil.value);
-}
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Principal Admin</title>
+	<link th:href="@{/webjars/bootstrap/4.0.0-alpha.6/dist/css/bootstrap.css}" rel="stylesheet" media="screen"/>
+	<link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet" media="screen"/> 
+	<script type="text/javascript">
+		function showFileName() {
+		   var fil = document.getElementById("myFile");
+		   alert(fil.value);
+		}
+	</script>
 </head>
+
 <body>
-<h1>Sistema de participacion</h1>
-<form  class="form-horizontal" role="form" action="registrar"  method="POST">
-	<div>
-   	<label class="control-label">Seleccione archivo</label>
-	<input id="input-1" type="file" name="archivo" class="custom-file-imput"/>
-	<input type="submit" value="Registrar" />
-    </div>
-</form>
+	<h1>Sistema de participacion</h1>
+	<form  class="form-horizontal" role="form" action="registrar"  method="POST">
+		<div>
+		   	<label class="control-label">Seleccione archivo</label>
+			<input id="input-1" type="file" name="archivo" class="custom-file-imput"/>
+			<input type="submit" value="Registrar" />
+	    </div>
+	</form>
 </body>
 </html>
