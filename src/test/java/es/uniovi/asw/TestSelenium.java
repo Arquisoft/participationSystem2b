@@ -35,6 +35,28 @@ public class TestSelenium {
 		rellenaLogin("hugo", "password");
 		textoPresentePagina("Inicio Sesion");
 	}
+	
+	@Test
+	public void añadirPropuesta(){
+		driver.get(baseUrl + "/");
+		// Usuario y contraseña correctos
+		rellenaLogin("Hugo", "password");
+		textoPresentePagina("Propuestas");
+		WebElement nombre = driver.findElement(By.id("crearPropuesta"));
+		nombre.click();
+		nombre = driver.findElement(By.id("title"));
+		nombre.click();
+		
+		String hora = ""+System.currentTimeMillis();
+		nombre.sendKeys("Propuesta " + hora);
+		nombre = driver.findElement(By.id("title"));
+		nombre.click();
+		nombre.sendKeys("Propuesta " + hora);
+		
+		nombre = driver.findElement(By.id("btnCrearPropuesta"));
+		
+		textoPresentePagina("Propuesta " + hora);
+	}
 
 	public void rellenaLogin(String SNombre, String SPassword) {
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
