@@ -68,6 +68,10 @@ public class MainController {
 
 			sesion.setAttribute("user", user);
 		}
+		else {
+			model.addAttribute("oculto", true);
+			model.addAttribute("mensaje", "Usuario o contraseña incorrectos");
+		}
 		return resultado;
 	}
 
