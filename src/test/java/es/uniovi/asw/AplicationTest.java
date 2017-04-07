@@ -55,12 +55,12 @@ public class AplicationTest {
 //				new Date(1995 - 1900, 2, 14),"Admin1");
 		assertNotNull(servPart.findParticipant("65431789T"));
 		// creamos un participant
-		Participant c = new Participant("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
+		Participant c = new Participant("juan", "Garcia", "email@prueba", "dir", "España", "1564613I",
 				new Date(1995 - 1900, 2, 25),"PepeGarcia");
 		
 		//lo metemos en la base de datos
 		servPart.addParticipant(c);
-		assertNotNull(Service.getParticipantService().findParticipant("564613I"));
+		assertNotNull(Service.getParticipantService().findParticipant("1564613I"));
 		// creamos una sugerencia
 		
 		Category categoria = new Category("Categoria p");
@@ -81,7 +81,7 @@ public class AplicationTest {
 		servComment.deleteComment(comment);
 		servSug.deleteSuggestion(sug);
 		servCat.deleteCateogory(categoria);
-		servPart.deleteParticipantByDni("564613I");
+		servPart.deleteParticipantByDni("1564613I");
 		
 	}
 	@SuppressWarnings("deprecation")

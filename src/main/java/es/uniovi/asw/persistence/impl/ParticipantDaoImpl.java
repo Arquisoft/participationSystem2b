@@ -65,13 +65,16 @@ public class ParticipantDaoImpl implements ParticipantDao {
 
 	@Override
 	public void deleteParticipantByDni(String dni) {
-		
+		EntityManager mapper = Jpa.createEntityManager();
+		EntityTransaction trx = mapper.getTransaction();
+		trx.begin();
 		Participant p = ParticipantFinder.findByDni(dni);
 		
 		p=Jpa.getManager().find(Participant.class, p.getId());
 		if(p !=null && p.getComments().size()==0 && p.getSuggestions().size()==0){
 			Jpa.getManager().remove(p);
 		}
+		trx.commit();
 	}
 	
 	@SuppressWarnings("deprecation")
