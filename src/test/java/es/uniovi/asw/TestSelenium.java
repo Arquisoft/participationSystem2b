@@ -49,7 +49,7 @@ public class TestSelenium {
 		
 		String hora = ""+System.currentTimeMillis();
 		nombre.sendKeys("Propuesta " + hora);
-		nombre = driver.findElement(By.id("title"));
+		nombre = driver.findElement(By.id("suggestionText"));
 		nombre.click();
 		nombre.sendKeys("Propuesta " + hora);
 		
