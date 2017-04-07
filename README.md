@@ -14,3 +14,4 @@ Skeleton of participants module
 - Ignacio Martin Franco (@NachoMartin123)
 - Hugo Pérez Martínez (@hugoPerezMartinez)
 - José Antonio 'tony' Marín Álvarez (@TonyMarin)
+- Daniel Orviz Suarez (@danielorviz)
